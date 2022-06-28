@@ -27,7 +27,7 @@ terminal 1
 $ git clone https://github.com/Twonarly1/poh-tools
 $ cd poh-tools
 $ yarn
-$ cd poh-tools/graphql-stepzen
+$ cd graphql-stepzen
 $ stepzen login
 $ stepzen start
 ```
