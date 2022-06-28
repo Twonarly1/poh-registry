@@ -1,0 +1,8 @@
+schema
+  @sdl(
+    files: [
+      "graphql/api_thegraph_comsubgraphsnameklerosproof_of_humanity_mainnet.graphql"
+    ]
+  ) {
+  query: Query
+}

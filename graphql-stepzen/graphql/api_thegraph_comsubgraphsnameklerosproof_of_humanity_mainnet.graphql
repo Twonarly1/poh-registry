@@ -1,0 +1,2103 @@
+scalar pohBigDecimal
+
+scalar pohBigInt
+
+input pohBlockChangedFilter {
+  number_gte: Int!
+}
+
+input pohBlock_height {
+  hash: pohBytes
+  number: Int
+  number_gte: Int
+}
+
+scalar pohBytes
+
+type pohChallenge {
+  """
+  The creation time.
+  """
+  creationTime: pohBigInt!
+  """
+  The request the challenge is for.
+  """
+  request: pohRequest!
+  """
+  The challenge's ID, keccak256(requestID, "Challenge-" + challengeIndex).
+  """
+  id: ID!
+  """
+  The challenge's reason.
+  """
+  reason: pohReason
+  """
+  The challenge's dispute ID.
+  """
+  disputeID: pohBigInt
+  """
+  The address of the requesterd.
+  """
+  requester: pohBytes
+  """
+  The address of the challenger.
+  """
+  challenger: pohBytes
+  """
+  The submission which is a supposed duplicate of the challenged submission. This is only used for `Reason.Duplicate`.
+  """
+  duplicateSubmission: pohSubmission
+  """
+  The final ruling.
+  """
+  ruling: pohBigInt
+  """
+  The rounds for the challenge.
+  """
+  rounds(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: pohRound_orderBy
+    orderDirection: pohOrderDirection
+    where: pohRound_filter
+  ): [pohRound!]!
+  """
+  The IDs of the rounds of this challenge.
+  """
+  roundIDs: [String!]!
+  """
+  The ID of the last round.
+  """
+  lastRoundID: pohBigInt!
+  """
+  In-contract challenge ID
+  """
+  challengeID: pohBigInt!
+  """
+  Start and end appeal period [start, end].
+  """
+  appealPeriod: [pohBigInt!]!
+}
+
+input pohChallenge_filter {
+  creationTime: pohBigInt
+  creationTime_not: pohBigInt
+  creationTime_gt: pohBigInt
+  creationTime_lt: pohBigInt
+  creationTime_gte: pohBigInt
+  creationTime_lte: pohBigInt
+  creationTime_in: [pohBigInt!]
+  creationTime_not_in: [pohBigInt!]
+  request: String
+  request_not: String
+  request_gt: String
+  request_lt: String
+  request_gte: String
+  request_lte: String
+  request_in: [String!]
+  request_not_in: [String!]
+  request_contains: String
+  request_contains_nocase: String
+  request_not_contains: String
+  request_not_contains_nocase: String
+  request_starts_with: String
+  request_starts_with_nocase: String
+  request_not_starts_with: String
+  request_not_starts_with_nocase: String
+  request_ends_with: String
+  request_ends_with_nocase: String
+  request_not_ends_with: String
+  request_not_ends_with_nocase: String
+  id: ID
+  id_not: ID
+  id_gt: ID
+  id_lt: ID
+  id_gte: ID
+  id_lte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  reason: pohReason
+  reason_not: pohReason
+  reason_in: [pohReason!]
+  reason_not_in: [pohReason!]
+  disputeID: pohBigInt
+  disputeID_not: pohBigInt
+  disputeID_gt: pohBigInt
+  disputeID_lt: pohBigInt
+  disputeID_gte: pohBigInt
+  disputeID_lte: pohBigInt
+  disputeID_in: [pohBigInt!]
+  disputeID_not_in: [pohBigInt!]
+  requester: pohBytes
+  requester_not: pohBytes
+  requester_in: [pohBytes!]
+  requester_not_in: [pohBytes!]
+  requester_contains: pohBytes
+  requester_not_contains: pohBytes
+  challenger: pohBytes
+  challenger_not: pohBytes
+  challenger_in: [pohBytes!]
+  challenger_not_in: [pohBytes!]
+  challenger_contains: pohBytes
+  challenger_not_contains: pohBytes
+  duplicateSubmission: String
+  duplicateSubmission_not: String
+  duplicateSubmission_gt: String
+  duplicateSubmission_lt: String
+  duplicateSubmission_gte: String
+  duplicateSubmission_lte: String
+  duplicateSubmission_in: [String!]
+  duplicateSubmission_not_in: [String!]
+  duplicateSubmission_contains: String
+  duplicateSubmission_contains_nocase: String
+  duplicateSubmission_not_contains: String
+  duplicateSubmission_not_contains_nocase: String
+  duplicateSubmission_starts_with: String
+  duplicateSubmission_starts_with_nocase: String
+  duplicateSubmission_not_starts_with: String
+  duplicateSubmission_not_starts_with_nocase: String
+  duplicateSubmission_ends_with: String
+  duplicateSubmission_ends_with_nocase: String
+  duplicateSubmission_not_ends_with: String
+  duplicateSubmission_not_ends_with_nocase: String
+  ruling: pohBigInt
+  ruling_not: pohBigInt
+  ruling_gt: pohBigInt
+  ruling_lt: pohBigInt
+  ruling_gte: pohBigInt
+  ruling_lte: pohBigInt
+  ruling_in: [pohBigInt!]
+  ruling_not_in: [pohBigInt!]
+  roundIDs: [String!]
+  roundIDs_not: [String!]
+  roundIDs_contains: [String!]
+  roundIDs_contains_nocase: [String!]
+  roundIDs_not_contains: [String!]
+  roundIDs_not_contains_nocase: [String!]
+  lastRoundID: pohBigInt
+  lastRoundID_not: pohBigInt
+  lastRoundID_gt: pohBigInt
+  lastRoundID_lt: pohBigInt
+  lastRoundID_gte: pohBigInt
+  lastRoundID_lte: pohBigInt
+  lastRoundID_in: [pohBigInt!]
+  lastRoundID_not_in: [pohBigInt!]
+  challengeID: pohBigInt
+  challengeID_not: pohBigInt
+  challengeID_gt: pohBigInt
+  challengeID_lt: pohBigInt
+  challengeID_gte: pohBigInt
+  challengeID_lte: pohBigInt
+  challengeID_in: [pohBigInt!]
+  challengeID_not_in: [pohBigInt!]
+  appealPeriod: [pohBigInt!]
+  appealPeriod_not: [pohBigInt!]
+  appealPeriod_contains: [pohBigInt!]
+  appealPeriod_contains_nocase: [pohBigInt!]
+  appealPeriod_not_contains: [pohBigInt!]
+  appealPeriod_not_contains_nocase: [pohBigInt!]
+  """
+  Filter for the block changed event.
+  """
+  _change_block: pohBlockChangedFilter
+}
+
+enum pohChallenge_orderBy {
+  creationTime
+  request
+  id
+  reason
+  disputeID
+  requester
+  challenger
+  duplicateSubmission
+  ruling
+  rounds
+  roundIDs
+  lastRoundID
+  challengeID
+  appealPeriod
+}
+
+type pohContract {
+  """
+  The singleton entity's ID, "0".
+  """
+  id: ID!
+  """
+  Proof of Humanity contract address
+  """
+  address: pohBytes!
+  """
+  The arbitrator contract's address.
+  """
+  arbitrator: pohBytes!
+  """
+  Extra data to require particular dispute and appeal behaviour.
+  """
+  arbitratorExtraData: pohBytes!
+  """
+  The address that can make governance changes to the parameters of the contract.
+  """
+  governor: pohBytes!
+  """
+  The base deposit to make a new request for a submission.
+  """
+  submissionBaseDeposit: pohBigInt!
+  """
+  The base deposit to challenge a request.
+  """
+  submissionChallengeBaseDeposit: pohBigInt!
+  """
+  Time after which the registered submission will no longer be considered registered. The submitter has to reapply to the list to refresh it.
+  """
+  submissionDuration: pohBigInt!
+  """
+  Denotes the point in time of the submission period after which it becomes possible for the submission to reapply (to refresh the duration of the submission period).
+  """
+  renewalTime: pohBigInt!
+  """
+  The time after which a request becomes executable if not challenged. Note that this value should be less than the time spent on potential dispute's resolution, to avoid complications of parallel dispute handling.
+  """
+  challengePeriodDuration: pohBigInt!
+  """
+  The number of registered users that have to vouch for a new registration request in order for it to enter `Status.PendingRegistration` status.
+  """
+  requiredNumberOfVouches: pohBigInt!
+  """
+  The number of times the meta evidence has been updated. Used to track the latest meta evidence ID.
+  """
+  metaEvidenceUpdates: pohBigInt!
+  """
+  Multiplier for calculating the fee stake that must be paid in a case where the arbitrator refused to arbitrate.
+  """
+  sharedStakeMultiplier: pohBigInt!
+  """
+  Multiplier for calculating the fee stake paid by the party that won the previous round.
+  """
+  winnerStakeMultiplier: pohBigInt!
+  """
+  Multiplier for calculating the fee stake paid by the party that lost the previous round.
+  """
+  loserStakeMultiplier: pohBigInt!
+  """
+  The current registration meta evidence.
+  """
+  registrationMetaEvidence: pohMetaEvidence
+  """
+  The current clearing meta evidence.
+  """
+  clearingMetaEvidence: pohMetaEvidence
+}
+
+input pohContract_filter {
+  id: ID
+  id_not: ID
+  id_gt: ID
+  id_lt: ID
+  id_gte: ID
+  id_lte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  address: pohBytes
+  address_not: pohBytes
+  address_in: [pohBytes!]
+  address_not_in: [pohBytes!]
+  address_contains: pohBytes
+  address_not_contains: pohBytes
+  arbitrator: pohBytes
+  arbitrator_not: pohBytes
+  arbitrator_in: [pohBytes!]
+  arbitrator_not_in: [pohBytes!]
+  arbitrator_contains: pohBytes
+  arbitrator_not_contains: pohBytes
+  arbitratorExtraData: pohBytes
+  arbitratorExtraData_not: pohBytes
+  arbitratorExtraData_in: [pohBytes!]
+  arbitratorExtraData_not_in: [pohBytes!]
+  arbitratorExtraData_contains: pohBytes
+  arbitratorExtraData_not_contains: pohBytes
+  governor: pohBytes
+  governor_not: pohBytes
+  governor_in: [pohBytes!]
+  governor_not_in: [pohBytes!]
+  governor_contains: pohBytes
+  governor_not_contains: pohBytes
+  submissionBaseDeposit: pohBigInt
+  submissionBaseDeposit_not: pohBigInt
+  submissionBaseDeposit_gt: pohBigInt
+  submissionBaseDeposit_lt: pohBigInt
+  submissionBaseDeposit_gte: pohBigInt
+  submissionBaseDeposit_lte: pohBigInt
+  submissionBaseDeposit_in: [pohBigInt!]
+  submissionBaseDeposit_not_in: [pohBigInt!]
+  submissionChallengeBaseDeposit: pohBigInt
+  submissionChallengeBaseDeposit_not: pohBigInt
+  submissionChallengeBaseDeposit_gt: pohBigInt
+  submissionChallengeBaseDeposit_lt: pohBigInt
+  submissionChallengeBaseDeposit_gte: pohBigInt
+  submissionChallengeBaseDeposit_lte: pohBigInt
+  submissionChallengeBaseDeposit_in: [pohBigInt!]
+  submissionChallengeBaseDeposit_not_in: [pohBigInt!]
+  submissionDuration: pohBigInt
+  submissionDuration_not: pohBigInt
+  submissionDuration_gt: pohBigInt
+  submissionDuration_lt: pohBigInt
+  submissionDuration_gte: pohBigInt
+  submissionDuration_lte: pohBigInt
+  submissionDuration_in: [pohBigInt!]
+  submissionDuration_not_in: [pohBigInt!]
+  renewalTime: pohBigInt
+  renewalTime_not: pohBigInt
+  renewalTime_gt: pohBigInt
+  renewalTime_lt: pohBigInt
+  renewalTime_gte: pohBigInt
+  renewalTime_lte: pohBigInt
+  renewalTime_in: [pohBigInt!]
+  renewalTime_not_in: [pohBigInt!]
+  challengePeriodDuration: pohBigInt
+  challengePeriodDuration_not: pohBigInt
+  challengePeriodDuration_gt: pohBigInt
+  challengePeriodDuration_lt: pohBigInt
+  challengePeriodDuration_gte: pohBigInt
+  challengePeriodDuration_lte: pohBigInt
+  challengePeriodDuration_in: [pohBigInt!]
+  challengePeriodDuration_not_in: [pohBigInt!]
+  requiredNumberOfVouches: pohBigInt
+  requiredNumberOfVouches_not: pohBigInt
+  requiredNumberOfVouches_gt: pohBigInt
+  requiredNumberOfVouches_lt: pohBigInt
+  requiredNumberOfVouches_gte: pohBigInt
+  requiredNumberOfVouches_lte: pohBigInt
+  requiredNumberOfVouches_in: [pohBigInt!]
+  requiredNumberOfVouches_not_in: [pohBigInt!]
+  metaEvidenceUpdates: pohBigInt
+  metaEvidenceUpdates_not: pohBigInt
+  metaEvidenceUpdates_gt: pohBigInt
+  metaEvidenceUpdates_lt: pohBigInt
+  metaEvidenceUpdates_gte: pohBigInt
+  metaEvidenceUpdates_lte: pohBigInt
+  metaEvidenceUpdates_in: [pohBigInt!]
+  metaEvidenceUpdates_not_in: [pohBigInt!]
+  sharedStakeMultiplier: pohBigInt
+  sharedStakeMultiplier_not: pohBigInt
+  sharedStakeMultiplier_gt: pohBigInt
+  sharedStakeMultiplier_lt: pohBigInt
+  sharedStakeMultiplier_gte: pohBigInt
+  sharedStakeMultiplier_lte: pohBigInt
+  sharedStakeMultiplier_in: [pohBigInt!]
+  sharedStakeMultiplier_not_in: [pohBigInt!]
+  winnerStakeMultiplier: pohBigInt
+  winnerStakeMultiplier_not: pohBigInt
+  winnerStakeMultiplier_gt: pohBigInt
+  winnerStakeMultiplier_lt: pohBigInt
+  winnerStakeMultiplier_gte: pohBigInt
+  winnerStakeMultiplier_lte: pohBigInt
+  winnerStakeMultiplier_in: [pohBigInt!]
+  winnerStakeMultiplier_not_in: [pohBigInt!]
+  loserStakeMultiplier: pohBigInt
+  loserStakeMultiplier_not: pohBigInt
+  loserStakeMultiplier_gt: pohBigInt
+  loserStakeMultiplier_lt: pohBigInt
+  loserStakeMultiplier_gte: pohBigInt
+  loserStakeMultiplier_lte: pohBigInt
+  loserStakeMultiplier_in: [pohBigInt!]
+  loserStakeMultiplier_not_in: [pohBigInt!]
+  registrationMetaEvidence: String
+  registrationMetaEvidence_not: String
+  registrationMetaEvidence_gt: String
+  registrationMetaEvidence_lt: String
+  registrationMetaEvidence_gte: String
+  registrationMetaEvidence_lte: String
+  registrationMetaEvidence_in: [String!]
+  registrationMetaEvidence_not_in: [String!]
+  registrationMetaEvidence_contains: String
+  registrationMetaEvidence_contains_nocase: String
+  registrationMetaEvidence_not_contains: String
+  registrationMetaEvidence_not_contains_nocase: String
+  registrationMetaEvidence_starts_with: String
+  registrationMetaEvidence_starts_with_nocase: String
+  registrationMetaEvidence_not_starts_with: String
+  registrationMetaEvidence_not_starts_with_nocase: String
+  registrationMetaEvidence_ends_with: String
+  registrationMetaEvidence_ends_with_nocase: String
+  registrationMetaEvidence_not_ends_with: String
+  registrationMetaEvidence_not_ends_with_nocase: String
+  clearingMetaEvidence: String
+  clearingMetaEvidence_not: String
+  clearingMetaEvidence_gt: String
+  clearingMetaEvidence_lt: String
+  clearingMetaEvidence_gte: String
+  clearingMetaEvidence_lte: String
+  clearingMetaEvidence_in: [String!]
+  clearingMetaEvidence_not_in: [String!]
+  clearingMetaEvidence_contains: String
+  clearingMetaEvidence_contains_nocase: String
+  clearingMetaEvidence_not_contains: String
+  clearingMetaEvidence_not_contains_nocase: String
+  clearingMetaEvidence_starts_with: String
+  clearingMetaEvidence_starts_with_nocase: String
+  clearingMetaEvidence_not_starts_with: String
+  clearingMetaEvidence_not_starts_with_nocase: String
+  clearingMetaEvidence_ends_with: String
+  clearingMetaEvidence_ends_with_nocase: String
+  clearingMetaEvidence_not_ends_with: String
+  clearingMetaEvidence_not_ends_with_nocase: String
+  """
+  Filter for the block changed event.
+  """
+  _change_block: pohBlockChangedFilter
+}
+
+enum pohContract_orderBy {
+  id
+  address
+  arbitrator
+  arbitratorExtraData
+  governor
+  submissionBaseDeposit
+  submissionChallengeBaseDeposit
+  submissionDuration
+  renewalTime
+  challengePeriodDuration
+  requiredNumberOfVouches
+  metaEvidenceUpdates
+  sharedStakeMultiplier
+  winnerStakeMultiplier
+  loserStakeMultiplier
+  registrationMetaEvidence
+  clearingMetaEvidence
+}
+
+type pohContribution {
+  """
+  The creation time.
+  """
+  creationTime: pohBigInt!
+  """
+  The round the contribution is for.
+  """
+  round: pohRound!
+  """
+  The contribution's ID, keccak256(roundID, contributor).
+  """
+  id: ID!
+  """
+  The address of the contributor.
+  """
+  contributor: pohBytes!
+  """
+  The contributions for each side.
+  """
+  values: [pohBigInt!]!
+  """
+  The request receiving the contribution.
+  """
+  requestIndex: pohBigInt!
+  """
+  The round receiving the contribution.
+  """
+  roundIndex: pohBigInt!
+  """
+  Whether the request is resolved
+  """
+  requestResolved: Boolean!
+}
+
+input pohContribution_filter {
+  creationTime: pohBigInt
+  creationTime_not: pohBigInt
+  creationTime_gt: pohBigInt
+  creationTime_lt: pohBigInt
+  creationTime_gte: pohBigInt
+  creationTime_lte: pohBigInt
+  creationTime_in: [pohBigInt!]
+  creationTime_not_in: [pohBigInt!]
+  round: String
+  round_not: String
+  round_gt: String
+  round_lt: String
+  round_gte: String
+  round_lte: String
+  round_in: [String!]
+  round_not_in: [String!]
+  round_contains: String
+  round_contains_nocase: String
+  round_not_contains: String
+  round_not_contains_nocase: String
+  round_starts_with: String
+  round_starts_with_nocase: String
+  round_not_starts_with: String
+  round_not_starts_with_nocase: String
+  round_ends_with: String
+  round_ends_with_nocase: String
+  round_not_ends_with: String
+  round_not_ends_with_nocase: String
+  id: ID
+  id_not: ID
+  id_gt: ID
+  id_lt: ID
+  id_gte: ID
+  id_lte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  contributor: pohBytes
+  contributor_not: pohBytes
+  contributor_in: [pohBytes!]
+  contributor_not_in: [pohBytes!]
+  contributor_contains: pohBytes
+  contributor_not_contains: pohBytes
+  values: [pohBigInt!]
+  values_not: [pohBigInt!]
+  values_contains: [pohBigInt!]
+  values_contains_nocase: [pohBigInt!]
+  values_not_contains: [pohBigInt!]
+  values_not_contains_nocase: [pohBigInt!]
+  requestIndex: pohBigInt
+  requestIndex_not: pohBigInt
+  requestIndex_gt: pohBigInt
+  requestIndex_lt: pohBigInt
+  requestIndex_gte: pohBigInt
+  requestIndex_lte: pohBigInt
+  requestIndex_in: [pohBigInt!]
+  requestIndex_not_in: [pohBigInt!]
+  roundIndex: pohBigInt
+  roundIndex_not: pohBigInt
+  roundIndex_gt: pohBigInt
+  roundIndex_lt: pohBigInt
+  roundIndex_gte: pohBigInt
+  roundIndex_lte: pohBigInt
+  roundIndex_in: [pohBigInt!]
+  roundIndex_not_in: [pohBigInt!]
+  requestResolved: Boolean
+  requestResolved_not: Boolean
+  requestResolved_in: [Boolean!]
+  requestResolved_not_in: [Boolean!]
+  """
+  Filter for the block changed event.
+  """
+  _change_block: pohBlockChangedFilter
+}
+
+enum pohContribution_orderBy {
+  creationTime
+  round
+  id
+  contributor
+  values
+  requestIndex
+  roundIndex
+  requestResolved
+}
+
+type pohCounter {
+  """
+  The singleton entity's ID, "1".
+  """
+  id: ID!
+  """
+  Number of submissions in the Vouching Phase
+  """
+  vouchingPhase: pohBigInt!
+  """
+  Number of submissions Pending Registration
+  """
+  pendingRegistration: pohBigInt!
+  """
+  Number of submissions Pending Removal
+  """
+  pendingRemoval: pohBigInt!
+  """
+  Number of submissions with Challenged Registration
+  """
+  challengedRegistration: pohBigInt!
+  """
+  Number of submissions with Challenged Removal
+  """
+  challengedRemoval: pohBigInt!
+  """
+  Number of submissions Registered
+  """
+  registered: pohBigInt!
+  """
+  Number of submissions Expired
+  """
+  expired: pohBigInt!
+  """
+  Number of submissions Removed
+  """
+  removed: pohBigInt!
+}
+
+input pohCounter_filter {
+  id: ID
+  id_not: ID
+  id_gt: ID
+  id_lt: ID
+  id_gte: ID
+  id_lte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  vouchingPhase: pohBigInt
+  vouchingPhase_not: pohBigInt
+  vouchingPhase_gt: pohBigInt
+  vouchingPhase_lt: pohBigInt
+  vouchingPhase_gte: pohBigInt
+  vouchingPhase_lte: pohBigInt
+  vouchingPhase_in: [pohBigInt!]
+  vouchingPhase_not_in: [pohBigInt!]
+  pendingRegistration: pohBigInt
+  pendingRegistration_not: pohBigInt
+  pendingRegistration_gt: pohBigInt
+  pendingRegistration_lt: pohBigInt
+  pendingRegistration_gte: pohBigInt
+  pendingRegistration_lte: pohBigInt
+  pendingRegistration_in: [pohBigInt!]
+  pendingRegistration_not_in: [pohBigInt!]
+  pendingRemoval: pohBigInt
+  pendingRemoval_not: pohBigInt
+  pendingRemoval_gt: pohBigInt
+  pendingRemoval_lt: pohBigInt
+  pendingRemoval_gte: pohBigInt
+  pendingRemoval_lte: pohBigInt
+  pendingRemoval_in: [pohBigInt!]
+  pendingRemoval_not_in: [pohBigInt!]
+  challengedRegistration: pohBigInt
+  challengedRegistration_not: pohBigInt
+  challengedRegistration_gt: pohBigInt
+  challengedRegistration_lt: pohBigInt
+  challengedRegistration_gte: pohBigInt
+  challengedRegistration_lte: pohBigInt
+  challengedRegistration_in: [pohBigInt!]
+  challengedRegistration_not_in: [pohBigInt!]
+  challengedRemoval: pohBigInt
+  challengedRemoval_not: pohBigInt
+  challengedRemoval_gt: pohBigInt
+  challengedRemoval_lt: pohBigInt
+  challengedRemoval_gte: pohBigInt
+  challengedRemoval_lte: pohBigInt
+  challengedRemoval_in: [pohBigInt!]
+  challengedRemoval_not_in: [pohBigInt!]
+  registered: pohBigInt
+  registered_not: pohBigInt
+  registered_gt: pohBigInt
+  registered_lt: pohBigInt
+  registered_gte: pohBigInt
+  registered_lte: pohBigInt
+  registered_in: [pohBigInt!]
+  registered_not_in: [pohBigInt!]
+  expired: pohBigInt
+  expired_not: pohBigInt
+  expired_gt: pohBigInt
+  expired_lt: pohBigInt
+  expired_gte: pohBigInt
+  expired_lte: pohBigInt
+  expired_in: [pohBigInt!]
+  expired_not_in: [pohBigInt!]
+  removed: pohBigInt
+  removed_not: pohBigInt
+  removed_gt: pohBigInt
+  removed_lt: pohBigInt
+  removed_gte: pohBigInt
+  removed_lte: pohBigInt
+  removed_in: [pohBigInt!]
+  removed_not_in: [pohBigInt!]
+  """
+  Filter for the block changed event.
+  """
+  _change_block: pohBlockChangedFilter
+}
+
+enum pohCounter_orderBy {
+  id
+  vouchingPhase
+  pendingRegistration
+  pendingRemoval
+  challengedRegistration
+  challengedRemoval
+  registered
+  expired
+  removed
+}
+
+type pohEvidence {
+  """
+  The creation time.
+  """
+  creationTime: pohBigInt!
+  """
+  The request the evidence is for.
+  """
+  request: pohRequest!
+  """
+  The evidence's ID, keccak256(requestID, "Evidence-" + requestEvidenceLength).
+  """
+  id: ID!
+  """
+  The URI of the evidence file.
+  """
+  URI: String!
+  """
+  The address of the sender.
+  """
+  sender: pohBytes!
+}
+
+input pohEvidence_filter {
+  creationTime: pohBigInt
+  creationTime_not: pohBigInt
+  creationTime_gt: pohBigInt
+  creationTime_lt: pohBigInt
+  creationTime_gte: pohBigInt
+  creationTime_lte: pohBigInt
+  creationTime_in: [pohBigInt!]
+  creationTime_not_in: [pohBigInt!]
+  request: String
+  request_not: String
+  request_gt: String
+  request_lt: String
+  request_gte: String
+  request_lte: String
+  request_in: [String!]
+  request_not_in: [String!]
+  request_contains: String
+  request_contains_nocase: String
+  request_not_contains: String
+  request_not_contains_nocase: String
+  request_starts_with: String
+  request_starts_with_nocase: String
+  request_not_starts_with: String
+  request_not_starts_with_nocase: String
+  request_ends_with: String
+  request_ends_with_nocase: String
+  request_not_ends_with: String
+  request_not_ends_with_nocase: String
+  id: ID
+  id_not: ID
+  id_gt: ID
+  id_lt: ID
+  id_gte: ID
+  id_lte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  URI: String
+  URI_not: String
+  URI_gt: String
+  URI_lt: String
+  URI_gte: String
+  URI_lte: String
+  URI_in: [String!]
+  URI_not_in: [String!]
+  URI_contains: String
+  URI_contains_nocase: String
+  URI_not_contains: String
+  URI_not_contains_nocase: String
+  URI_starts_with: String
+  URI_starts_with_nocase: String
+  URI_not_starts_with: String
+  URI_not_starts_with_nocase: String
+  URI_ends_with: String
+  URI_ends_with_nocase: String
+  URI_not_ends_with: String
+  URI_not_ends_with_nocase: String
+  sender: pohBytes
+  sender_not: pohBytes
+  sender_in: [pohBytes!]
+  sender_not_in: [pohBytes!]
+  sender_contains: pohBytes
+  sender_not_contains: pohBytes
+  """
+  Filter for the block changed event.
+  """
+  _change_block: pohBlockChangedFilter
+}
+
+enum pohEvidence_orderBy {
+  creationTime
+  request
+  id
+  URI
+  sender
+}
+
+type pohMetaEvidence {
+  """
+  The meta evidence ID.
+  """
+  id: ID!
+  """
+  The URI of the meta evidence file.
+  """
+  URI: String!
+}
+
+input pohMetaEvidence_filter {
+  id: ID
+  id_not: ID
+  id_gt: ID
+  id_lt: ID
+  id_gte: ID
+  id_lte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  URI: String
+  URI_not: String
+  URI_gt: String
+  URI_lt: String
+  URI_gte: String
+  URI_lte: String
+  URI_in: [String!]
+  URI_not_in: [String!]
+  URI_contains: String
+  URI_contains_nocase: String
+  URI_not_contains: String
+  URI_not_contains_nocase: String
+  URI_starts_with: String
+  URI_starts_with_nocase: String
+  URI_not_starts_with: String
+  URI_not_starts_with_nocase: String
+  URI_ends_with: String
+  URI_ends_with_nocase: String
+  URI_not_ends_with: String
+  URI_not_ends_with_nocase: String
+  """
+  Filter for the block changed event.
+  """
+  _change_block: pohBlockChangedFilter
+}
+
+enum pohMetaEvidence_orderBy {
+  id
+  URI
+}
+
+"""
+Defines the order direction, either ascending or descending
+"""
+enum pohOrderDirection {
+  asc
+  desc
+}
+
+type Query {
+  pohmetaEvidence(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: pohBlock_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: poh_SubgraphErrorPolicy_! = deny
+  ): pohMetaEvidence
+    @graphql(
+      endpoint: "https://api.thegraph.com/subgraphs/name/kleros/proof-of-humanity-mainnet"
+      prefix: { value: "poh", includeRootOperations: true }
+    )
+  pohmetaEvidences(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: pohMetaEvidence_orderBy
+    orderDirection: pohOrderDirection
+    where: pohMetaEvidence_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: pohBlock_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: poh_SubgraphErrorPolicy_! = deny
+  ): [pohMetaEvidence!]!
+    @graphql(
+      endpoint: "https://api.thegraph.com/subgraphs/name/kleros/proof-of-humanity-mainnet"
+      prefix: { value: "poh", includeRootOperations: true }
+    )
+  pohcontract(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: pohBlock_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: poh_SubgraphErrorPolicy_! = deny
+  ): pohContract
+    @graphql(
+      endpoint: "https://api.thegraph.com/subgraphs/name/kleros/proof-of-humanity-mainnet"
+      prefix: { value: "poh", includeRootOperations: true }
+    )
+  pohcontracts(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: pohContract_orderBy
+    orderDirection: pohOrderDirection
+    where: pohContract_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: pohBlock_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: poh_SubgraphErrorPolicy_! = deny
+  ): [pohContract!]!
+    @graphql(
+      endpoint: "https://api.thegraph.com/subgraphs/name/kleros/proof-of-humanity-mainnet"
+      prefix: { value: "poh", includeRootOperations: true }
+    )
+  pohsubmission(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: pohBlock_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: poh_SubgraphErrorPolicy_! = deny
+  ): pohSubmission
+    @graphql(
+      endpoint: "https://api.thegraph.com/subgraphs/name/kleros/proof-of-humanity-mainnet"
+      prefix: { value: "poh", includeRootOperations: true }
+    )
+  pohsubmissions(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: pohSubmission_orderBy
+    orderDirection: pohOrderDirection
+    where: pohSubmission_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: pohBlock_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: poh_SubgraphErrorPolicy_! = deny
+  ): [pohSubmission!]!
+    @graphql(
+      endpoint: "https://api.thegraph.com/subgraphs/name/kleros/proof-of-humanity-mainnet"
+      prefix: { value: "poh", includeRootOperations: true }
+    )
+  pohrequest(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: pohBlock_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: poh_SubgraphErrorPolicy_! = deny
+  ): pohRequest
+    @graphql(
+      endpoint: "https://api.thegraph.com/subgraphs/name/kleros/proof-of-humanity-mainnet"
+      prefix: { value: "poh", includeRootOperations: true }
+    )
+  pohrequests(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: pohRequest_orderBy
+    orderDirection: pohOrderDirection
+    where: pohRequest_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: pohBlock_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: poh_SubgraphErrorPolicy_! = deny
+  ): [pohRequest!]!
+    @graphql(
+      endpoint: "https://api.thegraph.com/subgraphs/name/kleros/proof-of-humanity-mainnet"
+      prefix: { value: "poh", includeRootOperations: true }
+    )
+  pohevidence(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: pohBlock_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: poh_SubgraphErrorPolicy_! = deny
+  ): pohEvidence
+    @graphql(
+      endpoint: "https://api.thegraph.com/subgraphs/name/kleros/proof-of-humanity-mainnet"
+      prefix: { value: "poh", includeRootOperations: true }
+    )
+  pohevidences(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: pohEvidence_orderBy
+    orderDirection: pohOrderDirection
+    where: pohEvidence_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: pohBlock_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: poh_SubgraphErrorPolicy_! = deny
+  ): [pohEvidence!]!
+    @graphql(
+      endpoint: "https://api.thegraph.com/subgraphs/name/kleros/proof-of-humanity-mainnet"
+      prefix: { value: "poh", includeRootOperations: true }
+    )
+  pohchallenge(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: pohBlock_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: poh_SubgraphErrorPolicy_! = deny
+  ): pohChallenge
+    @graphql(
+      endpoint: "https://api.thegraph.com/subgraphs/name/kleros/proof-of-humanity-mainnet"
+      prefix: { value: "poh", includeRootOperations: true }
+    )
+  pohchallenges(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: pohChallenge_orderBy
+    orderDirection: pohOrderDirection
+    where: pohChallenge_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: pohBlock_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: poh_SubgraphErrorPolicy_! = deny
+  ): [pohChallenge!]!
+    @graphql(
+      endpoint: "https://api.thegraph.com/subgraphs/name/kleros/proof-of-humanity-mainnet"
+      prefix: { value: "poh", includeRootOperations: true }
+    )
+  pohround(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: pohBlock_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: poh_SubgraphErrorPolicy_! = deny
+  ): pohRound
+    @graphql(
+      endpoint: "https://api.thegraph.com/subgraphs/name/kleros/proof-of-humanity-mainnet"
+      prefix: { value: "poh", includeRootOperations: true }
+    )
+  pohrounds(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: pohRound_orderBy
+    orderDirection: pohOrderDirection
+    where: pohRound_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: pohBlock_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: poh_SubgraphErrorPolicy_! = deny
+  ): [pohRound!]!
+    @graphql(
+      endpoint: "https://api.thegraph.com/subgraphs/name/kleros/proof-of-humanity-mainnet"
+      prefix: { value: "poh", includeRootOperations: true }
+    )
+  pohcontribution(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: pohBlock_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: poh_SubgraphErrorPolicy_! = deny
+  ): pohContribution
+    @graphql(
+      endpoint: "https://api.thegraph.com/subgraphs/name/kleros/proof-of-humanity-mainnet"
+      prefix: { value: "poh", includeRootOperations: true }
+    )
+  pohcontributions(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: pohContribution_orderBy
+    orderDirection: pohOrderDirection
+    where: pohContribution_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: pohBlock_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: poh_SubgraphErrorPolicy_! = deny
+  ): [pohContribution!]!
+    @graphql(
+      endpoint: "https://api.thegraph.com/subgraphs/name/kleros/proof-of-humanity-mainnet"
+      prefix: { value: "poh", includeRootOperations: true }
+    )
+  pohcounter(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: pohBlock_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: poh_SubgraphErrorPolicy_! = deny
+  ): pohCounter
+    @graphql(
+      endpoint: "https://api.thegraph.com/subgraphs/name/kleros/proof-of-humanity-mainnet"
+      prefix: { value: "poh", includeRootOperations: true }
+    )
+  pohcounters(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: pohCounter_orderBy
+    orderDirection: pohOrderDirection
+    where: pohCounter_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: pohBlock_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: poh_SubgraphErrorPolicy_! = deny
+  ): [pohCounter!]!
+    @graphql(
+      endpoint: "https://api.thegraph.com/subgraphs/name/kleros/proof-of-humanity-mainnet"
+      prefix: { value: "poh", includeRootOperations: true }
+    )
+  pohsubmissionsRegistry(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: pohBlock_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: poh_SubgraphErrorPolicy_! = deny
+  ): pohSubmissionsRegistry
+    @graphql(
+      endpoint: "https://api.thegraph.com/subgraphs/name/kleros/proof-of-humanity-mainnet"
+      prefix: { value: "poh", includeRootOperations: true }
+    )
+  pohsubmissionsRegistries(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: pohSubmissionsRegistry_orderBy
+    orderDirection: pohOrderDirection
+    where: pohSubmissionsRegistry_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: pohBlock_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: poh_SubgraphErrorPolicy_! = deny
+  ): [pohSubmissionsRegistry!]!
+    @graphql(
+      endpoint: "https://api.thegraph.com/subgraphs/name/kleros/proof-of-humanity-mainnet"
+      prefix: { value: "poh", includeRootOperations: true }
+    )
+  pohsubmissionSearch(
+    text: String!
+    first: Int = 100
+    skip: Int = 0
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: pohBlock_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: poh_SubgraphErrorPolicy_! = deny
+  ): [pohSubmission!]!
+    @graphql(
+      endpoint: "https://api.thegraph.com/subgraphs/name/kleros/proof-of-humanity-mainnet"
+      prefix: { value: "poh", includeRootOperations: true }
+    )
+  """
+  Access to subgraph metadata
+  """
+  poh_meta(block: pohBlock_height): poh_Meta_
+    @graphql(
+      endpoint: "https://api.thegraph.com/subgraphs/name/kleros/proof-of-humanity-mainnet"
+      prefix: { value: "poh", includeRootOperations: true }
+    )
+}
+
+enum pohReason {
+  """
+  No reason specified. This option should be used to challenge removal requests.
+  """
+  None
+  """
+  The submission does not comply with the submission rules.
+  """
+  IncorrectSubmission
+  """
+  The submitter has existed but does not exist anymore.
+  """
+  Deceased
+  """
+  The submitter is already registered. The challenger has to point to the identity already registered or to a duplicate submission.
+  """
+  Duplicate
+  """
+  The submitter is not real. For example, this can be used for videos showing computer generated persons.
+  """
+  DoesNotExist
+}
+
+type pohRequest {
+  """
+  The creation time.
+  """
+  creationTime: pohBigInt!
+  """
+  The submission the request is for.
+  """
+  submission: pohSubmission!
+  """
+  The request's ID, keccak256(submissionID, submissionRequestsLength).
+  """
+  id: ID!
+  """
+  The request index.
+  """
+  requestIndex: pohBigInt!
+  """
+  True if a dispute was raised. Note that the request can enter disputed state multiple times, once per reason.
+  """
+  disputed: Boolean!
+  """
+  Time when the submission's status was last updated. It's used to track when the challenge period ends.
+  """
+  lastStatusChange: pohBigInt!
+  """
+  True if the request is executed and/or all raised disputes are resolved.
+  """
+  resolved: Boolean!
+  """
+  Address that made the request. It matches the submission's ID in registration requests.
+  """
+  requester: pohBytes!
+  """
+  The arbitrator trusted to resolve disputes for the request.
+  """
+  arbitrator: pohBytes!
+  """
+  The extra data for the trusted arbitrator of the request.
+  """
+  arbitratorExtraData: pohBytes!
+  """
+  The submissions that vouched for the request.
+  """
+  vouches(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: pohSubmission_orderBy
+    orderDirection: pohOrderDirection
+    where: pohSubmission_filter
+  ): [pohSubmission!]!
+  """
+  Stores all reasons that were used to challenge the request, to make sure that each reason was only used once.
+  """
+  usedReasons: [pohReason!]!
+  """
+  Current reason the registration request was challenged with. It's left empty for removal requests.
+  """
+  currentReason: pohReason!
+  """
+  Tracks the number of simultaneously raised disputes. Parallel disputes are only allowed for `Reason.Duplicate`.
+  """
+  nbParallelDisputes: pohBigInt!
+  """
+  Address of the challenger who won a dispute, and who users, that vouched for the request, must pay fines to.
+  """
+  ultimateChallenger: pohBytes
+  """
+  True if the requester has already had a dispute that wasn't ruled in his favor.
+  """
+  requesterLost: Boolean!
+  """
+  Stores the index of the last processed vouch in the array of vouches. It's used for partial processing of the vouches in resolved requests.
+  """
+  penaltyIndex: pohBigInt!
+  """
+  The meta evidence for the request.
+  """
+  metaEvidence: pohMetaEvidence!
+  """
+  True if the request is for registration.
+  """
+  registration: Boolean!
+  """
+  The evidence for the request.
+  """
+  evidence(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: pohEvidence_orderBy
+    orderDirection: pohOrderDirection
+    where: pohEvidence_filter
+  ): [pohEvidence!]!
+  """
+  The request's number of evidence.
+  """
+  evidenceLength: pohBigInt!
+  """
+  The challenges for the request.
+  """
+  challenges(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: pohChallenge_orderBy
+    orderDirection: pohOrderDirection
+    where: pohChallenge_filter
+  ): [pohChallenge!]!
+  """
+  The ID of the last challenge, which is equal to the total number of challenges for the request
+  """
+  lastChallengeID: pohBigInt!
+  """
+  The request type
+  """
+  type: pohRequestType!
+  """
+  The time the request was resolved.
+  """
+  resolutionTime: pohBigInt!
+  """
+  True if vouch was not processed and vouchee is resolved.
+  """
+  vouchReleaseReady: Boolean!
+}
+
+enum pohRequestType {
+  """
+  This is a request to add a profile to the registry
+  """
+  Registration
+  """
+  This is a removal request
+  """
+  Removal
+}
+
+input pohRequest_filter {
+  creationTime: pohBigInt
+  creationTime_not: pohBigInt
+  creationTime_gt: pohBigInt
+  creationTime_lt: pohBigInt
+  creationTime_gte: pohBigInt
+  creationTime_lte: pohBigInt
+  creationTime_in: [pohBigInt!]
+  creationTime_not_in: [pohBigInt!]
+  submission: String
+  submission_not: String
+  submission_gt: String
+  submission_lt: String
+  submission_gte: String
+  submission_lte: String
+  submission_in: [String!]
+  submission_not_in: [String!]
+  submission_contains: String
+  submission_contains_nocase: String
+  submission_not_contains: String
+  submission_not_contains_nocase: String
+  submission_starts_with: String
+  submission_starts_with_nocase: String
+  submission_not_starts_with: String
+  submission_not_starts_with_nocase: String
+  submission_ends_with: String
+  submission_ends_with_nocase: String
+  submission_not_ends_with: String
+  submission_not_ends_with_nocase: String
+  id: ID
+  id_not: ID
+  id_gt: ID
+  id_lt: ID
+  id_gte: ID
+  id_lte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  requestIndex: pohBigInt
+  requestIndex_not: pohBigInt
+  requestIndex_gt: pohBigInt
+  requestIndex_lt: pohBigInt
+  requestIndex_gte: pohBigInt
+  requestIndex_lte: pohBigInt
+  requestIndex_in: [pohBigInt!]
+  requestIndex_not_in: [pohBigInt!]
+  disputed: Boolean
+  disputed_not: Boolean
+  disputed_in: [Boolean!]
+  disputed_not_in: [Boolean!]
+  lastStatusChange: pohBigInt
+  lastStatusChange_not: pohBigInt
+  lastStatusChange_gt: pohBigInt
+  lastStatusChange_lt: pohBigInt
+  lastStatusChange_gte: pohBigInt
+  lastStatusChange_lte: pohBigInt
+  lastStatusChange_in: [pohBigInt!]
+  lastStatusChange_not_in: [pohBigInt!]
+  resolved: Boolean
+  resolved_not: Boolean
+  resolved_in: [Boolean!]
+  resolved_not_in: [Boolean!]
+  requester: pohBytes
+  requester_not: pohBytes
+  requester_in: [pohBytes!]
+  requester_not_in: [pohBytes!]
+  requester_contains: pohBytes
+  requester_not_contains: pohBytes
+  arbitrator: pohBytes
+  arbitrator_not: pohBytes
+  arbitrator_in: [pohBytes!]
+  arbitrator_not_in: [pohBytes!]
+  arbitrator_contains: pohBytes
+  arbitrator_not_contains: pohBytes
+  arbitratorExtraData: pohBytes
+  arbitratorExtraData_not: pohBytes
+  arbitratorExtraData_in: [pohBytes!]
+  arbitratorExtraData_not_in: [pohBytes!]
+  arbitratorExtraData_contains: pohBytes
+  arbitratorExtraData_not_contains: pohBytes
+  vouches: [String!]
+  vouches_not: [String!]
+  vouches_contains: [String!]
+  vouches_contains_nocase: [String!]
+  vouches_not_contains: [String!]
+  vouches_not_contains_nocase: [String!]
+  usedReasons: [pohReason!]
+  usedReasons_not: [pohReason!]
+  usedReasons_contains: [pohReason!]
+  usedReasons_contains_nocase: [pohReason!]
+  usedReasons_not_contains: [pohReason!]
+  usedReasons_not_contains_nocase: [pohReason!]
+  currentReason: pohReason
+  currentReason_not: pohReason
+  currentReason_in: [pohReason!]
+  currentReason_not_in: [pohReason!]
+  nbParallelDisputes: pohBigInt
+  nbParallelDisputes_not: pohBigInt
+  nbParallelDisputes_gt: pohBigInt
+  nbParallelDisputes_lt: pohBigInt
+  nbParallelDisputes_gte: pohBigInt
+  nbParallelDisputes_lte: pohBigInt
+  nbParallelDisputes_in: [pohBigInt!]
+  nbParallelDisputes_not_in: [pohBigInt!]
+  ultimateChallenger: pohBytes
+  ultimateChallenger_not: pohBytes
+  ultimateChallenger_in: [pohBytes!]
+  ultimateChallenger_not_in: [pohBytes!]
+  ultimateChallenger_contains: pohBytes
+  ultimateChallenger_not_contains: pohBytes
+  requesterLost: Boolean
+  requesterLost_not: Boolean
+  requesterLost_in: [Boolean!]
+  requesterLost_not_in: [Boolean!]
+  penaltyIndex: pohBigInt
+  penaltyIndex_not: pohBigInt
+  penaltyIndex_gt: pohBigInt
+  penaltyIndex_lt: pohBigInt
+  penaltyIndex_gte: pohBigInt
+  penaltyIndex_lte: pohBigInt
+  penaltyIndex_in: [pohBigInt!]
+  penaltyIndex_not_in: [pohBigInt!]
+  metaEvidence: String
+  metaEvidence_not: String
+  metaEvidence_gt: String
+  metaEvidence_lt: String
+  metaEvidence_gte: String
+  metaEvidence_lte: String
+  metaEvidence_in: [String!]
+  metaEvidence_not_in: [String!]
+  metaEvidence_contains: String
+  metaEvidence_contains_nocase: String
+  metaEvidence_not_contains: String
+  metaEvidence_not_contains_nocase: String
+  metaEvidence_starts_with: String
+  metaEvidence_starts_with_nocase: String
+  metaEvidence_not_starts_with: String
+  metaEvidence_not_starts_with_nocase: String
+  metaEvidence_ends_with: String
+  metaEvidence_ends_with_nocase: String
+  metaEvidence_not_ends_with: String
+  metaEvidence_not_ends_with_nocase: String
+  registration: Boolean
+  registration_not: Boolean
+  registration_in: [Boolean!]
+  registration_not_in: [Boolean!]
+  evidenceLength: pohBigInt
+  evidenceLength_not: pohBigInt
+  evidenceLength_gt: pohBigInt
+  evidenceLength_lt: pohBigInt
+  evidenceLength_gte: pohBigInt
+  evidenceLength_lte: pohBigInt
+  evidenceLength_in: [pohBigInt!]
+  evidenceLength_not_in: [pohBigInt!]
+  lastChallengeID: pohBigInt
+  lastChallengeID_not: pohBigInt
+  lastChallengeID_gt: pohBigInt
+  lastChallengeID_lt: pohBigInt
+  lastChallengeID_gte: pohBigInt
+  lastChallengeID_lte: pohBigInt
+  lastChallengeID_in: [pohBigInt!]
+  lastChallengeID_not_in: [pohBigInt!]
+  type: pohRequestType
+  type_not: pohRequestType
+  type_in: [pohRequestType!]
+  type_not_in: [pohRequestType!]
+  resolutionTime: pohBigInt
+  resolutionTime_not: pohBigInt
+  resolutionTime_gt: pohBigInt
+  resolutionTime_lt: pohBigInt
+  resolutionTime_gte: pohBigInt
+  resolutionTime_lte: pohBigInt
+  resolutionTime_in: [pohBigInt!]
+  resolutionTime_not_in: [pohBigInt!]
+  vouchReleaseReady: Boolean
+  vouchReleaseReady_not: Boolean
+  vouchReleaseReady_in: [Boolean!]
+  vouchReleaseReady_not_in: [Boolean!]
+  """
+  Filter for the block changed event.
+  """
+  _change_block: pohBlockChangedFilter
+}
+
+enum pohRequest_orderBy {
+  creationTime
+  submission
+  id
+  requestIndex
+  disputed
+  lastStatusChange
+  resolved
+  requester
+  arbitrator
+  arbitratorExtraData
+  vouches
+  usedReasons
+  currentReason
+  nbParallelDisputes
+  ultimateChallenger
+  requesterLost
+  penaltyIndex
+  metaEvidence
+  registration
+  evidence
+  evidenceLength
+  challenges
+  lastChallengeID
+  type
+  resolutionTime
+  vouchReleaseReady
+}
+
+type pohRound {
+  """
+  The creation time.
+  """
+  creationTime: pohBigInt!
+  """
+  The challenge the round is for.
+  """
+  challenge: pohChallenge!
+  """
+  The round's ID, keccak256(challengeID, roundIndex).
+  """
+  id: ID!
+  """
+  Tracks the fees paid by each side in the round.
+  """
+  paidFees: [pohBigInt!]!
+  """
+  True for a side when it has fully paid its fee. False otherwise.
+  """
+  hasPaid: [Boolean!]!
+  """
+  Sum of reimbursable fees and stake rewards available to the parties that made contributions to the side that ultimately won.
+  """
+  feeRewards: pohBigInt!
+  """
+  The contributions for the round.
+  """
+  contributions(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: pohContribution_orderBy
+    orderDirection: pohOrderDirection
+    where: pohContribution_filter
+  ): [pohContribution!]!
+  """
+  The IDs of the contributions of this round.
+  """
+  contributionIDs: [String!]!
+  """
+  The number of contributions made to this round.
+  """
+  contributionsLength: pohBigInt!
+}
+
+input pohRound_filter {
+  creationTime: pohBigInt
+  creationTime_not: pohBigInt
+  creationTime_gt: pohBigInt
+  creationTime_lt: pohBigInt
+  creationTime_gte: pohBigInt
+  creationTime_lte: pohBigInt
+  creationTime_in: [pohBigInt!]
+  creationTime_not_in: [pohBigInt!]
+  challenge: String
+  challenge_not: String
+  challenge_gt: String
+  challenge_lt: String
+  challenge_gte: String
+  challenge_lte: String
+  challenge_in: [String!]
+  challenge_not_in: [String!]
+  challenge_contains: String
+  challenge_contains_nocase: String
+  challenge_not_contains: String
+  challenge_not_contains_nocase: String
+  challenge_starts_with: String
+  challenge_starts_with_nocase: String
+  challenge_not_starts_with: String
+  challenge_not_starts_with_nocase: String
+  challenge_ends_with: String
+  challenge_ends_with_nocase: String
+  challenge_not_ends_with: String
+  challenge_not_ends_with_nocase: String
+  id: ID
+  id_not: ID
+  id_gt: ID
+  id_lt: ID
+  id_gte: ID
+  id_lte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  paidFees: [pohBigInt!]
+  paidFees_not: [pohBigInt!]
+  paidFees_contains: [pohBigInt!]
+  paidFees_contains_nocase: [pohBigInt!]
+  paidFees_not_contains: [pohBigInt!]
+  paidFees_not_contains_nocase: [pohBigInt!]
+  hasPaid: [Boolean!]
+  hasPaid_not: [Boolean!]
+  hasPaid_contains: [Boolean!]
+  hasPaid_contains_nocase: [Boolean!]
+  hasPaid_not_contains: [Boolean!]
+  hasPaid_not_contains_nocase: [Boolean!]
+  feeRewards: pohBigInt
+  feeRewards_not: pohBigInt
+  feeRewards_gt: pohBigInt
+  feeRewards_lt: pohBigInt
+  feeRewards_gte: pohBigInt
+  feeRewards_lte: pohBigInt
+  feeRewards_in: [pohBigInt!]
+  feeRewards_not_in: [pohBigInt!]
+  contributionIDs: [String!]
+  contributionIDs_not: [String!]
+  contributionIDs_contains: [String!]
+  contributionIDs_contains_nocase: [String!]
+  contributionIDs_not_contains: [String!]
+  contributionIDs_not_contains_nocase: [String!]
+  contributionsLength: pohBigInt
+  contributionsLength_not: pohBigInt
+  contributionsLength_gt: pohBigInt
+  contributionsLength_lt: pohBigInt
+  contributionsLength_gte: pohBigInt
+  contributionsLength_lte: pohBigInt
+  contributionsLength_in: [pohBigInt!]
+  contributionsLength_not_in: [pohBigInt!]
+  """
+  Filter for the block changed event.
+  """
+  _change_block: pohBlockChangedFilter
+}
+
+enum pohRound_orderBy {
+  creationTime
+  challenge
+  id
+  paidFees
+  hasPaid
+  feeRewards
+  contributions
+  contributionIDs
+  contributionsLength
+}
+
+enum pohStatus {
+  """
+  The submission doesn't have a pending status.
+  """
+  None
+  """
+  The submission is in the state where it can be vouched for and crowdfunded.
+  """
+  Vouching
+  """
+  The submission is in the state where it can be challenged, or accepted to the list, if there are no challenges within the time limit.
+  """
+  PendingRegistration
+  """
+  The submission is in the state where it can be challenged, or removed from the list, if there are no challenges within the time limit.
+  """
+  PendingRemoval
+}
+
+type pohSubmission {
+  """
+  The creation time.
+  """
+  creationTime: pohBigInt!
+  """
+  The submission's address.
+  """
+  id: ID!
+  """
+  The current status of the submission.
+  """
+  status: pohStatus!
+  """
+  Whether the submission is in the registry or not.
+  """
+  registered: Boolean!
+  """
+  The time when the submission was accepted to the list.
+  """
+  submissionTime: pohBigInt
+  """
+  The name of the submission.
+  """
+  name: String!
+  """
+  Submissions the submission has vouched for.
+  """
+  vouchees(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: pohSubmission_orderBy
+    orderDirection: pohOrderDirection
+    where: pohSubmission_filter
+  ): [pohSubmission!]!
+  """
+  The vouchee that entered `Status.PendingRegistration` status and is using the submission's vouch.
+  """
+  usedVouch: pohSubmission
+  """
+  Submissions that have vouched for this submission. Note that vouches given by signature are added when the submission enters `Status.PendingRegistration`.
+  """
+  vouchesReceived(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: pohSubmission_orderBy
+    orderDirection: pohOrderDirection
+    where: pohSubmission_filter
+  ): [pohSubmission!]!
+  """
+  Number of vouches received.
+  """
+  vouchesReceivedLength: pohBigInt!
+  """
+  True if a dispute was raised. Note that the submission can enter disputed state multiple times, once per reason.
+  """
+  disputed: Boolean!
+  """
+  The submission's status change requests.
+  """
+  requests(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: pohRequest_orderBy
+    orderDirection: pohOrderDirection
+    where: pohRequest_filter
+  ): [pohRequest!]!
+  """
+  The submission's number of requests.
+  """
+  requestsLength: pohBigInt!
+  """
+  True if this submission was part of the seeding event.
+  """
+  seeded: Boolean!
+  """
+  True if this submission has been removed.
+  """
+  removed: Boolean!
+  """
+  The resolution time of the most recent request.
+  """
+  latestRequestResolutionTime: pohBigInt!
+}
+
+input pohSubmission_filter {
+  creationTime: pohBigInt
+  creationTime_not: pohBigInt
+  creationTime_gt: pohBigInt
+  creationTime_lt: pohBigInt
+  creationTime_gte: pohBigInt
+  creationTime_lte: pohBigInt
+  creationTime_in: [pohBigInt!]
+  creationTime_not_in: [pohBigInt!]
+  id: ID
+  id_not: ID
+  id_gt: ID
+  id_lt: ID
+  id_gte: ID
+  id_lte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  status: pohStatus
+  status_not: pohStatus
+  status_in: [pohStatus!]
+  status_not_in: [pohStatus!]
+  registered: Boolean
+  registered_not: Boolean
+  registered_in: [Boolean!]
+  registered_not_in: [Boolean!]
+  submissionTime: pohBigInt
+  submissionTime_not: pohBigInt
+  submissionTime_gt: pohBigInt
+  submissionTime_lt: pohBigInt
+  submissionTime_gte: pohBigInt
+  submissionTime_lte: pohBigInt
+  submissionTime_in: [pohBigInt!]
+  submissionTime_not_in: [pohBigInt!]
+  name: String
+  name_not: String
+  name_gt: String
+  name_lt: String
+  name_gte: String
+  name_lte: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_contains: String
+  name_contains_nocase: String
+  name_not_contains: String
+  name_not_contains_nocase: String
+  name_starts_with: String
+  name_starts_with_nocase: String
+  name_not_starts_with: String
+  name_not_starts_with_nocase: String
+  name_ends_with: String
+  name_ends_with_nocase: String
+  name_not_ends_with: String
+  name_not_ends_with_nocase: String
+  vouchees: [String!]
+  vouchees_not: [String!]
+  vouchees_contains: [String!]
+  vouchees_contains_nocase: [String!]
+  vouchees_not_contains: [String!]
+  vouchees_not_contains_nocase: [String!]
+  usedVouch: String
+  usedVouch_not: String
+  usedVouch_gt: String
+  usedVouch_lt: String
+  usedVouch_gte: String
+  usedVouch_lte: String
+  usedVouch_in: [String!]
+  usedVouch_not_in: [String!]
+  usedVouch_contains: String
+  usedVouch_contains_nocase: String
+  usedVouch_not_contains: String
+  usedVouch_not_contains_nocase: String
+  usedVouch_starts_with: String
+  usedVouch_starts_with_nocase: String
+  usedVouch_not_starts_with: String
+  usedVouch_not_starts_with_nocase: String
+  usedVouch_ends_with: String
+  usedVouch_ends_with_nocase: String
+  usedVouch_not_ends_with: String
+  usedVouch_not_ends_with_nocase: String
+  vouchesReceived: [String!]
+  vouchesReceived_not: [String!]
+  vouchesReceived_contains: [String!]
+  vouchesReceived_contains_nocase: [String!]
+  vouchesReceived_not_contains: [String!]
+  vouchesReceived_not_contains_nocase: [String!]
+  vouchesReceivedLength: pohBigInt
+  vouchesReceivedLength_not: pohBigInt
+  vouchesReceivedLength_gt: pohBigInt
+  vouchesReceivedLength_lt: pohBigInt
+  vouchesReceivedLength_gte: pohBigInt
+  vouchesReceivedLength_lte: pohBigInt
+  vouchesReceivedLength_in: [pohBigInt!]
+  vouchesReceivedLength_not_in: [pohBigInt!]
+  disputed: Boolean
+  disputed_not: Boolean
+  disputed_in: [Boolean!]
+  disputed_not_in: [Boolean!]
+  requestsLength: pohBigInt
+  requestsLength_not: pohBigInt
+  requestsLength_gt: pohBigInt
+  requestsLength_lt: pohBigInt
+  requestsLength_gte: pohBigInt
+  requestsLength_lte: pohBigInt
+  requestsLength_in: [pohBigInt!]
+  requestsLength_not_in: [pohBigInt!]
+  seeded: Boolean
+  seeded_not: Boolean
+  seeded_in: [Boolean!]
+  seeded_not_in: [Boolean!]
+  removed: Boolean
+  removed_not: Boolean
+  removed_in: [Boolean!]
+  removed_not_in: [Boolean!]
+  latestRequestResolutionTime: pohBigInt
+  latestRequestResolutionTime_not: pohBigInt
+  latestRequestResolutionTime_gt: pohBigInt
+  latestRequestResolutionTime_lt: pohBigInt
+  latestRequestResolutionTime_gte: pohBigInt
+  latestRequestResolutionTime_lte: pohBigInt
+  latestRequestResolutionTime_in: [pohBigInt!]
+  latestRequestResolutionTime_not_in: [pohBigInt!]
+  """
+  Filter for the block changed event.
+  """
+  _change_block: pohBlockChangedFilter
+}
+
+enum pohSubmission_orderBy {
+  creationTime
+  id
+  status
+  registered
+  submissionTime
+  name
+  vouchees
+  usedVouch
+  vouchesReceived
+  vouchesReceivedLength
+  disputed
+  requests
+  requestsLength
+  seeded
+  removed
+  latestRequestResolutionTime
+}
+
+type pohSubmissionsRegistry {
+  id: ID!
+  """
+  List of all current submissions
+  """
+  currentSubmissions(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: pohSubmission_orderBy
+    orderDirection: pohOrderDirection
+    where: pohSubmission_filter
+  ): [pohSubmission!]!
+  """
+  List of all expired submissions
+  """
+  expiredSubmissions(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: pohSubmission_orderBy
+    orderDirection: pohOrderDirection
+    where: pohSubmission_filter
+  ): [pohSubmission!]!
+}
+
+input pohSubmissionsRegistry_filter {
+  id: ID
+  id_not: ID
+  id_gt: ID
+  id_lt: ID
+  id_gte: ID
+  id_lte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  currentSubmissions: [String!]
+  currentSubmissions_not: [String!]
+  currentSubmissions_contains: [String!]
+  currentSubmissions_contains_nocase: [String!]
+  currentSubmissions_not_contains: [String!]
+  currentSubmissions_not_contains_nocase: [String!]
+  expiredSubmissions: [String!]
+  expiredSubmissions_not: [String!]
+  expiredSubmissions_contains: [String!]
+  expiredSubmissions_contains_nocase: [String!]
+  expiredSubmissions_not_contains: [String!]
+  expiredSubmissions_not_contains_nocase: [String!]
+  """
+  Filter for the block changed event.
+  """
+  _change_block: pohBlockChangedFilter
+}
+
+enum pohSubmissionsRegistry_orderBy {
+  id
+  currentSubmissions
+  expiredSubmissions
+}
+
+type poh_Block_ {
+  """
+  The hash of the block
+  """
+  hash: pohBytes
+  """
+  The block number
+  """
+  number: Int!
+}
+
+"""
+The type for the top-level _meta field
+"""
+type poh_Meta_ {
+  """
+  Information about a specific subgraph block. The hash of the block
+  will be null if the _meta field has a block constraint that asks for
+  a block number. It will be filled if the _meta field has no block constraint
+  and therefore asks for the latest  block
+  """
+  block: poh_Block_!
+  """
+  The deployment ID
+  """
+  deployment: String!
+  """
+  If `true`, the subgraph encountered indexing errors at some past block
+  """
+  hasIndexingErrors: Boolean!
+}
+
+enum poh_SubgraphErrorPolicy_ {
+  """
+  Data will be returned even if the subgraph has indexing errors
+  """
+  allow
+  """
+  If the subgraph has indexing errors, data will be omitted. The default.
+  """
+  deny
+}
