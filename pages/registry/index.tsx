@@ -46,36 +46,33 @@ function registry() {
 
   return (
     <div className="mx-auto mt-0 max-w-5xl p-4 text-center">
-      {setEnteredText ? (
-        <div className="mx-auto w-80 py-2 text-center">
-          <Search
-            submitAddress={submitAddress}
-            enteredText={enteredText}
-            setEnteredText={setEnteredText}
-            setNameSearched={setNameSearched}
-            setAddressSearched={setAddressSearched}
-          />
-        </div>
-      ) : (
-        <div className="mt-2">
-          {submissions &&
-            submissions?.map((submission, i) => (
-              <SearchResults
-                creationTime={submission.creationTime}
-                id={submission.id}
-                index={i}
-                key={submission.id}
-                name={submission.name}
-                registered={submission.registered}
-                requests={submission?.requests}
-                setEnteredText={setEnteredText}
-                status={submission.status}
-                submissionTime={submission.submissionTime}
-                submission={submission}
-              />
-            ))}
-        </div>
-      )}
+      <div className="mx-auto w-80 py-2 text-center">
+        <Search
+          submitAddress={submitAddress}
+          enteredText={enteredText}
+          setEnteredText={setEnteredText}
+          setNameSearched={setNameSearched}
+          setAddressSearched={setAddressSearched}
+        />
+      </div>
+      <div className="mt-2">
+        {submissions &&
+          submissions?.map((submission, i) => (
+            <SearchResults
+              creationTime={submission.creationTime}
+              id={submission.id}
+              index={i}
+              key={submission.id}
+              name={submission.name}
+              registered={submission.registered}
+              requests={submission?.requests}
+              setEnteredText={setEnteredText}
+              status={submission.status}
+              submissionTime={submission.submissionTime}
+              submission={submission}
+            />
+          ))}
+      </div>
     </div>
   )
 }
