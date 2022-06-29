@@ -16,6 +16,7 @@ import {
   lightTheme,
   RainbowKitProvider,
 } from '@rainbow-me/rainbowkit'
+import { Footer } from '../components/Footer'
 
 const { chains, provider } = configureChains(
   // [chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum],
@@ -50,13 +51,14 @@ function MyApp({ Component, pageProps: { session, pageProps } }: AppProps) {
           >
             <Toaster />
             <Head>
-              <title>PoH</title>
-              <link rel="icon" href="/favicon.ico" />
+              <title>poh tools</title>
+              <link rel="icon" href="/proofofhumanity.png" />
             </Head>
             <RecoilRoot>
-              <div className="h-screen overflow-y-scroll bg-slate-200">
+              <div className="h-screen overflow-y-scroll bg-gray-100">
                 <Header />
                 <Component {...pageProps} />
+                <Footer />
               </div>
             </RecoilRoot>
           </RainbowKitProvider>

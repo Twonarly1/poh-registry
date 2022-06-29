@@ -136,8 +136,8 @@ const ProfilePage = () => {
   }, [newUri])
 
   return (
-    <div className="mx-auto mt-4 max-w-5xl p-2 text-center">
-      <div className="mx-auto w-80 max-w-5xl text-center md:flex md:w-full md:justify-between">
+    <div className="mx-auto mt-4 w-full max-w-5xl p-2 text-center">
+      <div className="mx-auto max-w-lg text-center ">
         <Input
           submitAddress={submitAddress}
           enteredText={enteredText}

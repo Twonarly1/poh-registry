@@ -24,7 +24,8 @@ const Search = ({
           className="border-primary-light block w-full rounded-full border-none bg-slate-100 py-3 pl-10 text-left text-lg font-semibold shadow-none outline-none focus:border-none focus:bg-white focus:shadow-none focus:outline-none focus:ring-0 active:bg-white dark:text-black md:w-full md:max-w-lg"
           type="text"
           value={enteredText}
-          placeholder="Search PoH registry"
+          // toDo: add ENS support.
+          placeholder="Search registry by name or address"
           required
           autoComplete="true"
           spellCheck="false"
