@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useMutation, useQuery } from '@apollo/client'
-import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import Timeago from 'react-timeago'
 import { useAccount, useEnsName } from 'wagmi'
@@ -10,7 +9,6 @@ import { GET_POST_BY_POST_ID } from '../../graphql/queries'
 import { ADD_COMMENT } from '../../graphql/mutations'
 import Avatar from '../../components/Avatar'
 import Post from '../../components/Post'
-import { Listbox, Transition } from '@headlessui/react'
 import {
   PaperClipIcon,
   EmojiHappyIcon,
@@ -27,7 +25,6 @@ type FormData = {
 
 function PostPage() {
   const router = useRouter()
-  const { data: session } = useSession()
   const [addComment] = useMutation(ADD_COMMENT, {
     refetchQueries: [GET_POST_BY_POST_ID, 'getPostListByPostId'],
   })
