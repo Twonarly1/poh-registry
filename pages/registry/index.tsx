@@ -7,6 +7,7 @@ import {
 } from '../../graphql/queries'
 import Search from '../../components/Search'
 import SearchResults from '../../components/SearchResults'
+import Counter from '../../components/Counter'
 
 function registry() {
   const [nameSearched, setNameSearched] = useState('')
@@ -56,6 +57,9 @@ function registry() {
         />
       </div>
       <div className="mt-2">
+        <div className="py-56"></div>
+        <Counter />
+
         {submissions &&
           submissions?.map((submission, i) => (
             <SearchResults

@@ -30,10 +30,15 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/registry": [
+    "/registry/[id]": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/registry.js"
+      "static/chunks/pages/registry/[id].js"
+    ],
+    "/registry/filter": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/registry/filter.js"
     ]
   },
   "ampFirstPages": []

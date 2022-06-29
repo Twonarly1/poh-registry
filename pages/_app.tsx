@@ -1,6 +1,5 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import { SessionProvider } from 'next-auth/react'
 import Header from '../components/Header'
 import Head from 'next/head'
 import { ApolloProvider } from '@apollo/client'
@@ -19,10 +18,8 @@ import {
 import { Footer } from '../components/Footer'
 
 const { chains, provider } = configureChains(
-  // [chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum],
-
   [chain.mainnet],
-  [apiProvider.alchemy(process.env.ALCHEMY_ID), apiProvider.fallback()]
+  [apiProvider.fallback()]
 )
 const { connectors } = getDefaultWallets({
   appName: 'My RainbowKit App',
@@ -34,36 +31,34 @@ const wagmiClient = createClient({
   provider,
 })
 
-function MyApp({ Component, pageProps: { session, pageProps } }: AppProps) {
+function MyApp({ Component, pageProps: { pageProps } }: AppProps) {
   return (
     <ApolloProvider client={apolloClient}>
-      <SessionProvider session={session}>
-        <WagmiProvider client={wagmiClient}>
-          <RainbowKitProvider
-            coolMode={true}
-            chains={chains}
-            theme={lightTheme({
-              accentColor: '#FFAD33',
-              accentColorForeground: 'white',
-              borderRadius: 'small',
-              fontStack: 'system',
-            })}
-          >
-            <Toaster />
-            <Head>
-              <title>poh tools</title>
-              <link rel="icon" href="/proofofhumanity.png" />
-            </Head>
-            <RecoilRoot>
-              <div className="h-screen overflow-y-scroll bg-gray-100">
-                <Header />
-                <Component {...pageProps} />
-                <Footer />
-              </div>
-            </RecoilRoot>
-          </RainbowKitProvider>
-        </WagmiProvider>
-      </SessionProvider>
+      <WagmiProvider client={wagmiClient}>
+        <RainbowKitProvider
+          coolMode={true}
+          chains={chains}
+          theme={lightTheme({
+            accentColor: '#FFAD33',
+            accentColorForeground: 'white',
+            borderRadius: 'small',
+            fontStack: 'system',
+          })}
+        >
+          <Toaster />
+          <Head>
+            <title>poh tools</title>
+            <link rel="icon" href="/images/proofofhumanity.png" />
+          </Head>
+          <RecoilRoot>
+            <div className="h-screen overflow-y-scroll bg-slate-200">
+              <Header />
+              <Component {...pageProps} />
+              <Footer />
+            </div>
+          </RecoilRoot>
+        </RainbowKitProvider>
+      </WagmiProvider>
     </ApolloProvider>
   )
 }

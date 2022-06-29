@@ -2,7 +2,7 @@ import React from 'react'
 
 export function Footer() {
   return (
-    <footer className="flex flex-col items-center justify-center space-y-4 bg-gray-100 pt-8">
+    <footer className="relative bottom-0 flex flex-col items-center justify-center space-y-4 bg-slate-200 pt-8">
       <div className="flex space-x-4">
         <a className="underline" href="https://github.com/Twonarly1/poh-tools">
           GitHub

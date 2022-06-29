@@ -1,8 +1,7 @@
 import { LinkIcon, PhotographIcon } from '@heroicons/react/outline'
-import { useSession } from 'next-auth/react'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { gql, useMutation, useQuery } from '@apollo/client'
+import { useMutation } from '@apollo/client'
 import client from '../apollo-client'
 import toast from 'react-hot-toast'
 import { ADD_POST, ADD_SUBREDDIT } from '../graphql/mutations'
@@ -26,7 +25,6 @@ type Props = {
 }
 
 function PostBox({ subreddit }: Props) {
-  const { data: session } = useSession()
   const { data: accountData, isError, isLoading } = useAccount()
   const [imageBoxOpen, setImageBoxOpen] = useState(false)
   const [addSubreddit] = useMutation(ADD_SUBREDDIT)

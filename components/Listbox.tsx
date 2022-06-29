@@ -22,7 +22,7 @@ export default function ListBox({ selected, setSelected, filter }: Props) {
         <>
           <Listbox.Label className="block text-sm font-medium text-gray-700"></Listbox.Label>
           <div className="relative">
-            <Listbox.Button className="border-primary-light block w-full rounded-full border-none bg-slate-100 py-3 pl-2 text-left text-lg font-semibold shadow-none outline-none focus:border-none focus:bg-white focus:shadow-none focus:outline-none focus:ring-0 active:bg-white dark:text-black md:w-full md:max-w-lg">
+            <Listbox.Button className="border-primary-light block w-full rounded-full border-none bg-white py-3 pl-2 text-left text-lg font-semibold shadow-none outline-none focus:border-none focus:bg-white focus:shadow-none focus:outline-none focus:ring-0 active:bg-white dark:text-black md:w-full md:max-w-lg">
               <span className="flex items-center">
                 {selected?.avatar && (
                   <img
@@ -53,7 +53,7 @@ export default function ListBox({ selected, setSelected, filter }: Props) {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Listbox.Options className="absolute z-10 mt-1 max-h-56 w-80 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+              <Listbox.Options className="absolute right-0 z-10 mt-1 max-w-lg overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                 {filter?.map((person: any) => (
                   <Listbox.Option
                     key={person.id}
