@@ -48,7 +48,6 @@ function MyApp({ Component, pageProps: { session, pageProps } }: AppProps) {
               fontStack: 'system',
             })}
           >
-            {' '}
             <Toaster />
             <Head>
               <title>PoH</title>

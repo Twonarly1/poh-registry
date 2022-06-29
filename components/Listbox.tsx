@@ -1,6 +1,8 @@
-import { Fragment, SVGProps, useState } from 'react'
+import { Fragment } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
+
+// add pagination to the individual filter lists.
 
 type Props = {
   selected: any
@@ -13,19 +15,14 @@ function classNames(...classes: String[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function ListBox({
-  selected,
-  setSelected,
-  filter,
-  setEnteredText,
-}: Props) {
+export default function ListBox({ selected, setSelected, filter }: Props) {
   return (
     <Listbox value={selected} onChange={setSelected}>
       {({ open }) => (
         <>
           <Listbox.Label className="block text-sm font-medium text-gray-700"></Listbox.Label>
           <div className="relative">
-            <Listbox.Button className="relative h-10 w-80 cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-none focus:outline-none focus:ring-0  sm:text-sm">
+            <Listbox.Button className="border-primary-light block w-full rounded-full border-none bg-slate-100 py-3 pl-2 text-left text-lg font-semibold shadow-none outline-none focus:border-none focus:bg-white focus:shadow-none focus:outline-none focus:ring-0 active:bg-white dark:text-black md:w-full md:max-w-lg">
               <span className="flex items-center">
                 {selected?.avatar && (
                   <img
@@ -38,7 +35,10 @@ export default function ListBox({
                 <span className="ml-3 block truncate">{selected?.name}</span>
               </span>
               <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
-                <span className="mr-5"> {selected?.content}</span>
+                <span className="absolute right-8 text-primary-orange">
+                  {' '}
+                  {selected?.content}
+                </span>
                 <SelectorIcon
                   className="h-5 w-5 text-gray-400"
                   aria-hidden="true"

@@ -21,8 +21,7 @@ const Search = ({
           <SearchIcon className="h-5 w-5 text-gray-700" aria-hidden="true" />
         </div>
         <input
-          className="block h-10 w-80 rounded-md border border-gray-300 bg-white pl-10 text-gray-900 outline-none placeholder:ml-1 placeholder:font-medium placeholder:text-gray-900 focus:border-none
-         focus:outline-none sm:text-sm"
+          className="border-primary-light block w-full rounded-full border-none bg-slate-100 py-3 pl-10 text-left text-lg font-semibold shadow-none outline-none focus:border-none focus:bg-white focus:shadow-none focus:outline-none focus:ring-0 active:bg-white dark:text-black md:w-full md:max-w-lg"
           type="text"
           value={enteredText}
           placeholder="Search PoH registry"

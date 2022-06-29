@@ -46,7 +46,7 @@ function registry() {
 
   return (
     <div className="mx-auto mt-0 max-w-5xl p-4 text-center">
-      <div className="mx-auto w-80 py-2 text-center">
+      <div className="mx-auto max-w-lg py-2 text-center">
         <Search
           submitAddress={submitAddress}
           enteredText={enteredText}

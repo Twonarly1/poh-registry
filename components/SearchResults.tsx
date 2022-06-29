@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import router from 'next/router'
-import { ChevronUpIcon, LinkIcon } from '@heroicons/react/outline'
-import Timeago from 'react-timeago'
+import { LinkIcon } from '@heroicons/react/outline'
 import { useEnsName } from 'wagmi'
-import { conciseEthAddress, formatUnix, transformURI } from '../lib/utilities'
+import { conciseEthAddress, transformURI } from '../lib/utilities'
 import Avatar from './Avatar'
-import { Disclosure } from '@headlessui/react'
-import Ubi from './Ubi'
-import Profile from './Profile'
 
 function SearchResults({
   id,
@@ -51,7 +47,7 @@ function SearchResults({
 
   console.log('profile:', profile)
   return (
-    <div className="mx-auto flex max-w-5xl items-center justify-between space-x-2 border-t bg-white px-4 py-2 last:rounded-b">
+    <div className="mx-auto flex max-w-5xl cursor-default items-center justify-between space-x-2 border-t bg-white px-4 py-2 last:rounded-b">
       <div className="flex items-center space-x-2">
         <p className="w-5">{index + 1}</p>
         <Avatar seed={id} />
