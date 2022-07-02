@@ -56,10 +56,12 @@ function registry() {
           setAddressSearched={setAddressSearched}
         />
       </div>
-      <div className="mt-2">
-        <div className="py-56"></div>
-        <Counter />
 
+      <div className="pt-8">
+        <Counter />
+        <div className="h-80"></div>
+      </div>
+      <div className="relative bottom-0">
         {submissions &&
           submissions?.map((submission, i) => (
             <SearchResults

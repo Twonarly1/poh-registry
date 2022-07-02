@@ -5,6 +5,7 @@ import { GET_SUBREDDITS_WITH_LIMIT } from '../graphql/queries'
 import Feed from '../components/Feed'
 import PostBox from '../components/PostBox'
 import SubredditRow from '../components/SubredditList'
+import { ConnectButton } from '@rainbow-me/rainbowkit'
 
 const Home: NextPage = () => {
   const { data } = useQuery(GET_SUBREDDITS_WITH_LIMIT, {
@@ -16,7 +17,10 @@ const Home: NextPage = () => {
   const subreddits: Subreddit[] = data?.getSubredditListLimit
 
   return (
-    <div className="my-7 mx-auto max-w-5xl px-6">
+    <div className="my-7 mx-auto  max-w-5xl px-6">
+      <div className="pb-6">
+        <ConnectButton />
+      </div>
       <PostBox />
       <div className="flex">
         <Feed />
