@@ -5,6 +5,5 @@
   "/reddit": "pages/reddit.js",
   "/registry": "pages/registry.js",
   "/registry/filter": "pages/registry/filter.js",
-  "/registry/[id]": "pages/registry/[id].js",
-  "/": "pages/index.js"
+  "/registry/[id]": "pages/registry/[id].js"
 }

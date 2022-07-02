@@ -57,7 +57,7 @@ function registry() {
         />
       </div>
 
-      <div className="pt-8">
+      <div className="pt-6">
         <Counter />
 
         {submissions &&

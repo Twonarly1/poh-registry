@@ -22,7 +22,7 @@ const Counter = () => {
   const letters = count.toString().split('')
 
   return (
-    <div className="flex-col-2  flex items-center justify-center gap-4 pb-10 lg:pt-8">
+    <div className="flex-col-2  flex items-center justify-center gap-4 pb-6">
       <div
         className={clsx(
           'grid grid-flow-col justify-center gap-2',
@@ -33,7 +33,7 @@ const Counter = () => {
           <div
             className={clsx(
               'animate-enter',
-              'hover:text-primary-pink focus:text-primary-pink relative cursor-default items-center rounded-lg bg-white p-1 px-3 text-center font-mono text-xl font-bold text-gray-600 shadow-lg transition duration-500 ease-in-out hover:text-opacity-50 focus:outline-none focus:ring-2'
+              'relative cursor-default items-center rounded-lg bg-white p-1 px-3 text-center font-mono text-xl font-bold text-gray-600 shadow-lg transition duration-500 ease-in-out hover:text-primary-orange hover:text-opacity-50 focus:text-primary-orange focus:outline-none focus:ring-2'
             )}
             key={i + '-' + l}
           >
@@ -41,7 +41,7 @@ const Counter = () => {
           </div>
         ))}
       </div>
-      <div className="focus:text-primary-pink hover:text-primary-pink z-10 hidden cursor-default rounded text-xl font-semibold tracking-wider text-gray-600 transition duration-500 ease-in-out hover:text-opacity-50 sm:flex">
+      <div className="z-10 hidden cursor-default rounded text-xl font-semibold tracking-wider text-gray-600 transition duration-500 ease-in-out hover:text-primary-orange hover:text-opacity-50 focus:text-primary-orange sm:flex">
         Registrants
       </div>
     </div>
