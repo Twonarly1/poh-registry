@@ -17,9 +17,14 @@ const Tabs = () => {
   function alert() {
     toast.error(
       (t) => (
-        <div className="flex space-x-2">
+        <div className="flex items-center space-x-2">
           Please see <b className="px-1 text-green-800">apollo-client.js</b>
-          <button onClick={() => toast.dismiss(t.id)}>&nbsp;Dismiss</button>
+          <button
+            className="rounded-lg border-2 border-primary-orange px-2 py-1"
+            onClick={() => toast.dismiss(t.id)}
+          >
+            OK!
+          </button>
         </div>
       ),
       {
@@ -28,6 +33,8 @@ const Tabs = () => {
           padding: '16px',
           color: '#713200',
         },
+        position: 'bottom-center',
+
         iconTheme: {
           primary: 'rgb(255, 3, 3)',
           secondary: '#FFFAEE',

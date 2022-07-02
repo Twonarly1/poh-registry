@@ -19,7 +19,8 @@ const Home: NextPage = () => {
               linked up with the poh registry data and is to be completed at a
               later date. Currently, you can search the registry and filter the
               registry. To view the reddit side of the application, clone the
-              repo, then find apollo-client.js and change the uri.
+              repo, then find the file named apollo-client.js and change the
+              uri.
             </p>
           </div>
 
@@ -33,7 +34,7 @@ const Home: NextPage = () => {
                 <a
                   href="https://www.proofofhumanity.id/"
                   type="button"
-                  className="mb-6 inline-block w-full rounded bg-primary-orange px-6 py-2.5 text-lg font-medium leading-tight text-white shadow-md transition duration-150 ease-in-out hover:border-primary-orange hover:shadow-lg focus:shadow-lg active:shadow-lg"
+                  className="mb-6 inline-block w-full rounded bg-primary-orange px-6 py-2.5 text-center text-lg font-medium leading-tight text-white shadow-md transition duration-150 ease-in-out hover:border-primary-orange hover:shadow-lg focus:shadow-lg active:shadow-lg"
                 >
                   Join the registry!
                 </a>

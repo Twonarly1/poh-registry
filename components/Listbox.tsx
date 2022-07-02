@@ -22,7 +22,7 @@ export default function ListBox({ selected, setSelected, filter }: Props) {
         <>
           <Listbox.Label className="block text-sm font-medium text-gray-700"></Listbox.Label>
           <div className="relative">
-            <Listbox.Button className="border-primary-light block w-full rounded-full border-none bg-white py-3 pl-2 text-left text-lg font-semibold shadow-none outline-none focus:border-none focus:bg-white focus:shadow-none focus:outline-none focus:ring-0 active:bg-white dark:text-black md:w-full md:max-w-lg">
+            <Listbox.Button className=" border-primary-light block w-full rounded-full border-none bg-white py-3 pl-2 text-left text-lg font-semibold shadow-none outline-none focus:border-none focus:bg-white focus:shadow-none focus:outline-none focus:ring-0 active:bg-white dark:text-black md:w-full md:max-w-lg">
               <span className="flex items-center">
                 {selected?.avatar && (
                   <img

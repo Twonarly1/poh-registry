@@ -10,11 +10,7 @@ function SearchResults({
   index,
   name,
   setEnteredText,
-  submissionTime,
-  creationTime,
   requests,
-  status,
-  submission,
 }: Submissions) {
   const { data: ensData } = useEnsName({
     address: id,
@@ -45,19 +41,17 @@ function SearchResults({
       })
   }, [newUri])
 
-  console.log('profile:', profile)
+  // console.log('profile:', profile)
   return (
-    <div className="mx-auto flex max-w-5xl cursor-default items-center justify-between space-x-2 border-t bg-white px-4 py-2 last:rounded-b">
+    <div className="mx-auto flex max-w-5xl cursor-default items-center  justify-between space-x-2  border-t bg-white px-4 py-2 last:rounded-b">
       <div className="flex items-center space-x-2">
         <p className="w-5">{index + 1}</p>
         <Avatar seed={id} />
-        <p className="truncate font-bold text-black">{name}</p>
-        <span className="text-gray-400 lg:hidden">
+        <p className="text-left font-bold text-black">{name}</p>
+        <p className="text-gray-400 lg:hidden">
           {ensData || conciseEthAddress(id)}
-        </span>
-        <span className="hidden text-gray-400 lg:inline-flex">
-          {ensData || id}
-        </span>
+        </p>
+        <p className="hidden text-gray-400 lg:inline-flex">{ensData || id}</p>
       </div>
       <div className="flex">
         <button

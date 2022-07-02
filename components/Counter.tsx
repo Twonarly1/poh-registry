@@ -18,14 +18,11 @@ const Counter = () => {
     Number(data?.vouchingPhase),
   ]
   const total = numbers.reduce((total, number) => total + number, 0)
-  //   console.log('total:', total)
   const count = total
-  //   console.log('count:', count)
   const letters = count.toString().split('')
-  //   console.log('letter count', letters)
 
   return (
-    <div className="flex-col-2  flex items-center justify-center gap-4 pb-12 lg:pt-24">
+    <div className="flex-col-2  flex items-center justify-center gap-4 pb-10 lg:pt-8">
       <div
         className={clsx(
           'grid grid-flow-col justify-center gap-2',
@@ -44,7 +41,7 @@ const Counter = () => {
           </div>
         ))}
       </div>
-      <div className="focus:text-primary-pink hover:text-primary-pink z-10 cursor-default rounded text-xl font-semibold tracking-wider text-gray-600 transition duration-500 ease-in-out hover:text-opacity-50">
+      <div className="focus:text-primary-pink hover:text-primary-pink z-10 hidden cursor-default rounded text-xl font-semibold tracking-wider text-gray-600 transition duration-500 ease-in-out hover:text-opacity-50 sm:flex">
         Registrants
       </div>
     </div>

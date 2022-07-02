@@ -97,8 +97,8 @@ function PostBox({ subreddit }: Props) {
         console.log(newPost)
       } else {
         // Use existing subreddit...
-        console.log('Using existing subreddit!')
-        console.log(getSubredditListByTopic)
+        // console.log('Using existing subreddit!')
+        // console.log(getSubredditListByTopic)
 
         const image = formData.postImage || ''
 
@@ -130,7 +130,7 @@ function PostBox({ subreddit }: Props) {
     }
   })
 
-  console.log(subreddit)
+  // console.log(subreddit)
 
   return (
     <form

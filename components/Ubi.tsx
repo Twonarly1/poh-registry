@@ -33,6 +33,7 @@ const Ubi = ({ ethAddress }: UbiProps) => {
 
   if (isLoading) return <div>Fetching balance…</div>
   if (isError) return <div>Error fetching balance</div>
+
   async function addToken() {
     try {
       //@ts-ignore

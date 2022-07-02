@@ -19,7 +19,7 @@ type Props = {
 const VoucheesModal = ({ submission }: Props) => {
   let [isOpen, setIsOpen] = useRecoilState(voucheesStateModal)
 
-  console.log('vouccheesModal', submission)
+  // console.log('vouccheesModal', submission)
 
   return (
     <>

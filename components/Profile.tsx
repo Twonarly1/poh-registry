@@ -19,7 +19,6 @@ import Copy from './Copy'
 import Avatar from './Avatar'
 import SidebarRow from './MenuList'
 import VoucheesModal from './VoucheesModal'
-import NftWallet from './NftWallet'
 import Timeago from 'react-timeago'
 
 const Profile = ({
