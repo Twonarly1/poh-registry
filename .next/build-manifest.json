@@ -25,16 +25,6 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/reddit": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/reddit.js"
-    ],
-    "/registry": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/registry.js"
-    ],
     "/registry/[id]": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",

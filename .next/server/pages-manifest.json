@@ -2,8 +2,6 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/reddit": "pages/reddit.js",
-  "/registry": "pages/registry.js",
   "/registry/filter": "pages/registry/filter.js",
   "/registry/[id]": "pages/registry/[id].js"
 }

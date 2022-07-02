@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import {
@@ -15,127 +15,129 @@ import router from 'next/router'
 import { Menu } from '@headlessui/react'
 import Tabs from './Tabs'
 import { useRouter } from 'next/router'
+import { Dialog, Transition } from '@headlessui/react'
+import { CheckIcon } from '@heroicons/react/outline'
+
 const Header = () => {
   const router = useRouter()
+  const [open, setOpen] = useState(false)
 
   return (
-    <div className="w-full bg-white shadow-lg">
-      <div className="sticky top-0 z-50 mx-auto flex w-screen max-w-5xl items-center justify-between bg-white px-8 py-2">
-        {/* <div className="items-center text-gray-500 sm:hidden">
-          <Menu>
-            <Menu.Button>
-              <MenuIcon className="h-6 w-6" />
-            </Menu.Button>
-            <Menu.Items className="ml-2  space-x-2">
-              <Menu.Item>
-                {({ active }) => (
-                  <button
-                    onClick={() => router.push('/')}
-                    className={
-                      active
-                        ? 'bg-gray-100 text-gray-500 outline-none'
-                        : 'bg-white text-gray-500'
-                    }
-                  >
-                    <div className="icon">
-                      <HomeIcon
-                        className={
-                          active
-                            ? 'h-6 w-6 items-center bg-gray-100 text-primary-orange'
-                            : 'h-6 w-6 text-gray-500 hover:bg-gray-100'
-                        }
-                      />
-                      <p className="hidden md:flex">Home</p>
-                    </div>
-                  </button>
-                )}
-              </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <button
-                    onClick={() => router.push('/reddit')}
-                    className={
-                      active
-                        ? 'bg-gray-100 text-gray-500 outline-none'
-                        : 'bg-white text-gray-500'
-                    }
-                  >
-                    <div onClick={alert} className="icon">
-                      <ChatAlt2Icon
-                        className={
-                          active
-                            ? 'h-6 w-6 items-center bg-gray-100 text-primary-orange'
-                            : 'h-6 w-6 text-gray-500 hover:bg-gray-100'
-                        }
-                      />
-                      <p className="hidden md:flex">Chat</p>
-                    </div>
-                  </button>
-                )}
-              </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <button
-                    onClick={() => router.push('/registry')}
-                    className={
-                      active
-                        ? 'bg-gray-100 text-gray-500 outline-none'
-                        : 'bg-white text-gray-500'
-                    }
-                  >
-                    <div className="icon">
-                      <SearchIcon
-                        className={
-                          active
-                            ? 'h-6 w-6 items-center bg-gray-100 text-primary-orange'
-                            : 'h-6 w-6 text-gray-500 hover:bg-gray-100'
-                        }
-                      />
-                      <p className="hidden md:flex">Search</p>
-                    </div>
-                  </button>
-                )}
-              </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <button
-                    onClick={() => router.push('/registry/filter')}
-                    className={
-                      active
-                        ? 'bg-gray-100 text-gray-500 outline-none'
-                        : 'bg-white text-gray-500'
-                    }
-                  >
-                    <div className="icon">
-                      <FilterIcon
-                        className={
-                          active
-                            ? 'h-6 w-6 items-center bg-gray-100 text-primary-orange'
-                            : 'h-6 w-6 text-gray-500 hover:bg-gray-100'
-                        }
-                      />
-                      <p className="hidden md:flex">Filter</p>
-                    </div>
-                  </button>
-                )}
-              </Menu.Item>
-            </Menu.Items>
-          </Menu>
-        </div> */}
-        <div className="relative h-12 w-12 flex-shrink-0 cursor-pointer sm:flex">
-          <Link href="/">
-            <Image
-              priority
-              objectFit="contain"
-              layout="fill"
-              src="/images/proofofhumanity.png"
+    <>
+      <div className="w-full bg-white shadow-lg">
+        <div className="sticky top-0 z-50 mx-auto flex w-screen max-w-5xl items-center justify-between bg-white px-8 py-2">
+          <div className="relative h-12 w-12 flex-shrink-0 cursor-pointer sm:flex">
+            <Link href="/">
+              <Image
+                priority
+                objectFit="contain"
+                layout="fill"
+                src="/images/proofofhumanity.png"
+              />
+            </Link>
+          </div>
+          <ConnectButton />
+          <div className="flex items-center space-x-2 ">
+            <MenuIcon
+              className="h-6 w-6 cursor-pointer sm:hidden"
+              onClick={() => setOpen(true)}
             />
-          </Link>
+            <Tabs />
+          </div>
+          {/* {router.asPath == '/reddit' ? <ConnectButton /> : ''} */}
         </div>
-        <Tabs />
-        {/* {router.asPath == '/reddit' ? <ConnectButton /> : ''} */}
       </div>
-    </div>
+
+      <Transition.Root appear show={open} as={Fragment}>
+        <Dialog
+          as="div"
+          className="fixed inset-0 z-50 overflow-y-auto"
+          open={open}
+          onClose={() => setOpen(true)}
+        >
+          <div
+            className="min-h-screen px-4 text-center"
+            onClick={() => setOpen(false)}
+          >
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-50 transition-opacity" />
+            </Transition.Child>
+            {/* This element is to trick the browser into centering the modal contents. */}
+            <span
+              className="inline-block h-screen align-middle"
+              aria-hidden="true"
+            >
+              &#8203;
+            </span>
+            <Dialog.Panel>
+              <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
+
+              <div className="fixed inset-0 mx-auto mt-32  h-fit max-w-sm items-center justify-center bg-white  p-4">
+                <div className="">
+                  <div className="relative mx-auto h-24 w-full w-24 flex-shrink-0 cursor-pointer text-center sm:flex">
+                    <Image
+                      priority
+                      objectFit="contain"
+                      layout="fill"
+                      className=""
+                      src="/images/proofofhumanity.png"
+                    />
+                  </div>
+                  <div className="mt-3 text-center sm:mt-5">
+                    <Dialog.Title
+                      as="h3"
+                      className="text-lg font-medium leading-6 text-gray-900"
+                    ></Dialog.Title>
+                    <Link href="/">
+                      <div className="icon">
+                        <HomeIcon className="h-6 w-6 items-center text-primary-orange hover:bg-gray-100" />
+                        <p className="">Home</p>
+                      </div>
+                    </Link>
+                    <Link href="/reddit">
+                      <div className="icon">
+                        <ChatAlt2Icon className="h-6 w-6 items-center text-primary-orange hover:bg-gray-100" />
+                        <p className="hex">Chat</p>
+                      </div>
+                    </Link>
+
+                    <Link href="/registry">
+                      <div className="icon">
+                        <SearchIcon className="h-6 w-6 items-center text-primary-orange hover:bg-gray-100" />
+                        <p className="">Search Registry</p>
+                      </div>
+                    </Link>
+                    <Link href="/registry/filter">
+                      <div className="icon">
+                        <FilterIcon className="h-6 w-6 items-center text-primary-orange hover:bg-gray-100" />
+                        <p className="">Filter Registry</p>
+                      </div>
+                    </Link>
+                  </div>
+                </div>
+                <div className="mt-5 sm:mt-6">
+                  <button
+                    type="button"
+                    className="inline-flex w-full justify-center rounded-md border border-transparent bg-white px-4 py-2 text-base font-medium text-black text-white shadow-lg ring-primary-orange hover:bg-primary-orange focus:outline-none focus:ring-2 focus:ring-offset-2 sm:text-sm"
+                    onClick={() => setOpen(false)}
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </Dialog.Panel>
+          </div>
+        </Dialog>
+      </Transition.Root>
+    </>
   )
 }
 

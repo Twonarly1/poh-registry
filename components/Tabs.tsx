@@ -43,7 +43,7 @@ const Tabs = () => {
     )
   }
   return (
-    <div className=" items-center text-gray-500 sm:inline-flex md:space-x-1">
+    <div className="hidden items-center text-gray-500 sm:inline-flex md:space-x-1">
       <Tab.Group>
         <Tab.List>
           <Tab as={Fragment}>
