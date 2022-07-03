@@ -17,7 +17,7 @@ import SearchResults from '../../components/SearchResults'
 const ProfilePage = () => {
   const router = useRouter()
   const address = router.asPath.toLowerCase().replace('/registry/', '')
-  console.log(address)
+  // console.log(address)
   const [newUri, setNewUri] = useState('')
   const [profile, setProfile] = useState<any>('')
   const [nameSearched, setNameSearched] = useState('')
@@ -85,17 +85,17 @@ const ProfilePage = () => {
     variables: { status: selected.name },
   })
   const status: Submissions[] = statusData?.pohsubmissions
-  console.log('status', status)
+  // console.log('status', status)
   //order
   const { data: orderingData } = useQuery(GET_SUBMISSIONS_BY_ORDERING, {
     variables: { orderBy: selected.name },
   })
   const ordered: Submissions[] = orderingData?.pohsubmissions
-  console.log('ordered:', ordered)
+  // console.log('ordered:', ordered)
   const submissions: Submissions[] = nameSearchedData?.pohsubmissions
   const submission =
     data?.pohsubmissions[0] || addressSearchedData?.pohsubmissions[0]
-  console.log(submission)
+  // console.log(submission)
   let uri = submission?.requests[0].evidence[0].URI
   const uriToHttp = transformURI(uri)
   const uriToJson = transformURI(newUri)

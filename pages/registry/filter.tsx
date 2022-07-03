@@ -66,14 +66,14 @@ const filter = () => {
     variables: { status: selected.name },
   })
   const status: Submissions[] = data?.pohsubmissions
-  console.log('status', status)
+  // console.log('status', status)
 
   //order
   const { data: orderingData } = useQuery(GET_SUBMISSIONS_BY_ORDERING, {
     variables: { orderBy: selected.name },
   })
   const ordered: Submissions[] = orderingData?.pohsubmissions
-  console.log('ordered:', ordered)
+  // console.log('ordered:', ordered)
 
   return (
     <div className="mx-auto mt-0 max-w-5xl p-4 text-center">

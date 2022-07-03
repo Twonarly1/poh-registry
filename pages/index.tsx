@@ -1,6 +1,5 @@
 import React from 'react'
 import type { NextPage } from 'next'
-import { Footer } from '../components/Footer'
 import Counter from '../components/Counter'
 
 const Home: NextPage = () => {
@@ -14,13 +13,8 @@ const Home: NextPage = () => {
         <div className=" w-full items-center gap-12">
           <div className="">
             <p className="mt-12 text-gray-600 ">
-              Welcome! This application is to support and promote the Proof of
-              Humanity registry. The /reddit page of this application is not
-              linked up with the poh registry data and is to be completed at a
-              later date. Currently, you can search the registry and filter the
-              registry. To view the reddit side of the application, clone the
-              repo, then find the file named apollo-client.js and change the
-              uri.
+              Welcome Proof of Humanity. Currently you can search and filter the
+              registry!
             </p>
           </div>
 
@@ -50,7 +44,10 @@ const Home: NextPage = () => {
                       className="h-6 w-6  "
                       alt=""
                     />
-                    <p className="underline"> linktr.ee/proofofhumanity</p>
+                    <p className="text-gray-500 underline">
+                      {' '}
+                      linktr.ee/proofofhumanity
+                    </p>
                   </a>
                 </div>
               </form>

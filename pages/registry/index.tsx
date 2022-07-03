@@ -27,7 +27,7 @@ function registry() {
 
   //submission
   const submissions: Submissions[] = nameSearchedData?.pohsubmissions
-  console.log('submissions:', submissions)
+  // console.log('submissions:', submissions)
 
   const [searchAddress, { data: addressSearchedData }] = useLazyQuery(
     GET_SUBMISSION_BY_ADDRESS,
