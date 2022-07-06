@@ -12,7 +12,7 @@ const Home: NextPage = () => {
         </h1>
         <div className=" w-full items-center gap-12">
           <div className="">
-            <p className="mt-12 text-gray-600 ">
+            <p className="mx-auto mt-12 text-center text-gray-600 ">
               Welcome Proof of Humanity. Currently you can search and filter the
               registry!
             </p>

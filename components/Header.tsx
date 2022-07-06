@@ -9,14 +9,9 @@ import {
   MenuIcon,
 } from '@heroicons/react/outline'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
-import toast from 'react-hot-toast'
-import { Tab } from '@headlessui/react'
-import router from 'next/router'
-import { Menu } from '@headlessui/react'
 import Tabs from './Tabs'
 import { useRouter } from 'next/router'
 import { Dialog, Transition } from '@headlessui/react'
-import { CheckIcon } from '@heroicons/react/outline'
 
 const Header = () => {
   const router = useRouter()
