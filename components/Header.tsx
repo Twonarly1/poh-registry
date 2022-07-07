@@ -21,7 +21,7 @@ const Header = () => {
     <>
       <div className="w-full bg-white shadow-lg">
         <div className="sticky top-0 z-50 mx-auto flex w-screen max-w-5xl items-center justify-between bg-white px-8 py-2">
-          <div className="relative h-12 w-12 flex-shrink-0 cursor-pointer sm:flex">
+          {/* <div className="relative h-12 w-12 flex-shrink-0 cursor-pointer sm:flex">
             <Link href="/">
               <Image
                 priority
@@ -30,7 +30,7 @@ const Header = () => {
                 src="/images/proofofhumanity.png"
               />
             </Link>
-          </div>
+          </div> */}
           <ConnectButton />
           <div className="flex items-center space-x-2 ">
             <MenuIcon

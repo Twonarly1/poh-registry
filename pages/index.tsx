@@ -1,59 +1,39 @@
 import React from 'react'
 import type { NextPage } from 'next'
 import Counter from '../components/Counter'
+import { Footer } from '../components/Footer'
+import Image from 'next/image'
 
 const Home: NextPage = () => {
   return (
-    <div className="mx-auto mt-12 h-fit max-w-5xl bg-slate-200 px-6 text-center text-gray-800 md:px-12 lg:text-left">
-      <div className="container mx-auto">
-        <h1 className="w-full text-5xl font-bold tracking-tight md:pt-6 md:text-6xl lg:mx-auto lg:text-center xl:text-7xl">
-          Proof of
-          <span className="ml-2 text-primary-orange">Humanity</span>
+    <div className="mx-auto mt-12 w-full  bg-slate-200  text-center text-gray-800">
+      <div className=" mx-auto">
+        <h1 className="w-full text-5xl font-medium md:pt-6 md:text-7xl lg:mx-auto lg:text-center ">
+          Proof of Humanity{' '}
         </h1>
-        <div className=" w-full items-center gap-12">
-          <div className="">
-            <p className="mx-auto mt-12 text-center text-gray-600 ">
-              Welcome Proof of Humanity. Currently you can search and filter the
-              registry!
-            </p>
-          </div>
-
-          <div className="py-16 lg:mx-auto lg:w-full lg:text-center">
+        <p className="mx-auto mt-4 text-center text-2xl text-gray-600 ">
+          Search and filter the poh registry.
+        </p>
+        <div className=" w-full items-center gap-6">
+          <div className="py-16">
             <Counter />
-          </div>
-
-          <div className="mx-auto mb-12 max-w-xl">
-            <div className="block rounded-lg bg-white py-6 px-6 shadow-lg">
-              <form>
-                <a
-                  href="https://www.proofofhumanity.id/"
-                  type="button"
-                  className="mb-6 inline-block w-full rounded bg-primary-orange px-6 py-2.5 text-center text-lg font-medium leading-tight text-white shadow-md transition duration-150 ease-in-out hover:border-primary-orange hover:shadow-lg focus:shadow-lg active:shadow-lg"
-                >
-                  Join the registry!
-                </a>
-
-                <div className="flex justify-center">
-                  <a
-                    href="https://linktr.ee/proofofhumanity"
-                    role="button"
-                    className=" flex space-x-2 transition duration-200 ease-in-out "
-                  >
-                    <img
-                      src="/images/linktree.svg"
-                      className="h-6 w-6  "
-                      alt=""
-                    />
-                    <p className="text-gray-500 underline">
-                      {' '}
-                      linktr.ee/proofofhumanity
-                    </p>
-                  </a>
-                </div>
-              </form>
-            </div>
+            <a
+              href="https://www.coingecko.com/en/coins/universal-basic-income"
+              className="mx-auto -mt-4 flex w-fit items-center justify-center space-x-2"
+            >
+              <Image
+                src="/images/ubi.svg"
+                className="mx-auto items-center"
+                height={24}
+                width={24}
+              />
+              <p> Earn Universal Basic Income</p>{' '}
+            </a>
           </div>
         </div>
+      </div>
+      <div className="fixed bottom-0 mx-auto w-full pb-4  text-center">
+        <Footer />
       </div>
     </div>
   )

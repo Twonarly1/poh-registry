@@ -54,7 +54,6 @@ function MyApp({ Component, pageProps: { pageProps } }: AppProps) {
             <div className="h-screen overflow-y-scroll bg-slate-200">
               <Header />
               <Component {...pageProps} />
-              <Footer />
             </div>
           </RecoilRoot>
         </RainbowKitProvider>

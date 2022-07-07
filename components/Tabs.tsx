@@ -60,7 +60,7 @@ const Tabs = () => {
                   <HomeIcon
                     className={
                       selected
-                        ? 'h-6 w-6 items-center bg-gray-100 text-primary-orange'
+                        ? 'h-6 w-6 items-center bg-gray-100 '
                         : 'h-6 w-6 text-gray-500 hover:bg-gray-100'
                     }
                   />
@@ -83,7 +83,7 @@ const Tabs = () => {
                   <ChatAlt2Icon
                     className={
                       selected
-                        ? 'h-6 w-6 items-center bg-gray-100 text-primary-orange'
+                        ? 'h-6 w-6 items-center bg-gray-100'
                         : 'h-6 w-6 text-gray-500 hover:bg-gray-100'
                     }
                   />
@@ -107,7 +107,7 @@ const Tabs = () => {
                   <SearchIcon
                     className={
                       selected
-                        ? 'h-6 w-6 items-center bg-gray-100 text-primary-orange'
+                        ? 'h-6 w-6 items-center bg-gray-100'
                         : 'h-6 w-6 text-gray-500 hover:bg-gray-100'
                     }
                   />
@@ -130,7 +130,7 @@ const Tabs = () => {
                   <FilterIcon
                     className={
                       selected
-                        ? 'h-6 w-6 items-center bg-gray-100 text-primary-orange'
+                        ? 'h-6 w-6 items-center bg-gray-100'
                         : 'h-6 w-6 text-gray-500 hover:bg-gray-100'
                     }
                   />
