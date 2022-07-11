@@ -1,4 +1,4 @@
-import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client'
+import { ApolloClient, InMemoryCache } from '@apollo/client'
 
 // There are two seperate stepzen api requests, and the site is not setup to handle both at the same time.
 // Swap the uri below to change requests.
