@@ -3,7 +3,7 @@ import React, { SVGProps } from 'react'
 interface Props {
   Icon: (props: SVGProps<SVGSVGElement>) => JSX.Element
   title: string
-  content: any
+  content?: any
   onClick?: () => {}
 }
 

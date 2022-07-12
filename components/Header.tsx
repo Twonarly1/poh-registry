@@ -21,25 +21,25 @@ const Header = () => {
     <>
       <div className="w-full bg-white shadow-lg">
         <div className="sticky top-0 z-50 mx-auto flex w-screen max-w-5xl items-center justify-between bg-white px-8 py-2">
-          {/* <div className="relative h-12 w-12 flex-shrink-0 cursor-pointer sm:flex">
-            <Link href="/">
-              <Image
-                priority
-                objectFit="contain"
-                layout="fill"
-                src="/images/proofofhumanity.png"
-              />
-            </Link>
-          </div> */}
-          <ConnectButton />
+          <div
+            onClick={() => router.push('/')}
+            className="relative h-12 w-12 flex-shrink-0 cursor-pointer sm:flex"
+          >
+            <Image
+              priority
+              objectFit="contain"
+              layout="fill"
+              src="/images/proofofhumanity.png"
+            />
+          </div>
           <div className="flex items-center space-x-2 ">
             <MenuIcon
               className="h-6 w-6 cursor-pointer sm:hidden"
               onClick={() => setOpen(true)}
             />
             <Tabs />
+            <ConnectButton />
           </div>
-          {/* {router.asPath == '/reddit' ? <ConnectButton /> : ''} */}
         </div>
       </div>
 
@@ -77,7 +77,7 @@ const Header = () => {
 
               <div className="fixed inset-0 mx-auto mt-32  h-fit max-w-sm items-center justify-center bg-white  p-4">
                 <div className="">
-                  <div className="relative mx-auto h-24 w-full w-24 flex-shrink-0 cursor-pointer text-center sm:flex">
+                  <div className="relative mx-auto h-24 w-24 flex-shrink-0 cursor-pointer text-center sm:flex">
                     <Image
                       priority
                       objectFit="contain"
@@ -103,7 +103,6 @@ const Header = () => {
                         <p className="hex">Chat</p>
                       </div>
                     </Link>
-
                     <Link href="/registry">
                       <div className="icon">
                         <SearchIcon className="h-6 w-6 items-center text-primary-orange hover:bg-gray-100" />
