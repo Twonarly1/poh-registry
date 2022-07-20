@@ -1,6 +1,4 @@
 import { useQuery } from '@apollo/client'
-import clsx from 'clsx'
-import router from 'next/router'
 import React from 'react'
 import { GET_REGISTRY_COUNTERS } from '../graphql/queries'
 
@@ -24,17 +22,13 @@ const Counter = () => {
   return (
     <div className="flex-col-2  flex items-center justify-center gap-4 pb-6">
       <div
-        className={clsx(
-          'grid grid-flow-col justify-center gap-2',
-          count === 0 && ''
-        )}
+        className="
+          'grid flex grid-flow-col justify-center gap-2"
       >
         {letters.map((l, i) => (
           <div
-            className={clsx(
-              'animate-enter',
-              'relative cursor-default items-center rounded-lg bg-white p-1 px-3 text-center font-mono text-xl font-bold text-gray-600 shadow-lg transition duration-500 ease-in-out hover:text-primary-orange hover:text-opacity-50 focus:text-primary-orange focus:outline-none focus:ring-2'
-            )}
+            className="
+              'relative cursor-default items-center rounded-lg bg-white p-1 px-3 text-center font-mono text-xl font-bold text-gray-600 shadow-lg transition duration-500 ease-in-out hover:text-primary-orange hover:text-opacity-50 focus:text-primary-orange focus:outline-none focus:ring-2"
             key={i + '-' + l}
           >
             {l}

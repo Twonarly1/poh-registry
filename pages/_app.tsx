@@ -15,7 +15,6 @@ import {
   lightTheme,
   RainbowKitProvider,
 } from '@rainbow-me/rainbowkit'
-import { Footer } from '../components/Footer'
 
 const { chains, provider } = configureChains(
   [chain.mainnet],

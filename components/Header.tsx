@@ -93,25 +93,25 @@ const Header = () => {
                     ></Dialog.Title>
                     <Link href="/">
                       <div className="icon">
-                        <HomeIcon className="h-6 w-6 items-center text-primary-orange hover:bg-gray-100" />
+                        <HomeIcon className="header" />
                         <p className="">Home</p>
                       </div>
                     </Link>
                     <Link href="/reddit">
                       <div className="icon">
-                        <ChatAlt2Icon className="h-6 w-6 items-center text-primary-orange hover:bg-gray-100" />
+                        <ChatAlt2Icon className="header" />
                         <p className="hex">Chat</p>
                       </div>
                     </Link>
                     <Link href="/registry">
                       <div className="icon">
-                        <SearchIcon className="h-6 w-6 items-center text-primary-orange hover:bg-gray-100" />
+                        <SearchIcon className="header" />
                         <p className="">Search Registry</p>
                       </div>
                     </Link>
                     <Link href="/registry/filter">
                       <div className="icon">
-                        <FilterIcon className="h-6 w-6 items-center text-primary-orange hover:bg-gray-100" />
+                        <FilterIcon className="header" />
                         <p className="">Filter Registry</p>
                       </div>
                     </Link>

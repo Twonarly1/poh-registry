@@ -45,6 +45,8 @@ function registry() {
     }
   }
 
+  console.log(submissions)
+
   return (
     <div className="mx-auto mt-0 max-w-5xl p-4 text-center">
       <div className="mx-auto max-w-lg py-2 text-center">

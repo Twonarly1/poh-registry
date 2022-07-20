@@ -220,7 +220,7 @@ export const GET_SUBMISSION_BY_NAME = gql`
 `
 
 export const GET_SUBMISSIONS_BY_STATUS = gql`
-  query MyQuery($first: Int = 100, $status: pohStatus = PendingRegistration) {
+  query MyQuery($first: Int = 1, $status: pohStatus = PendingRegistration) {
     pohsubmissions(
       first: $first
       orderDirection: desc
@@ -248,10 +248,7 @@ export const GET_SUBMISSIONS_BY_STATUS = gql`
 `
 
 export const GET_SUBMISSIONS_BY_ORDERING = gql`
-  query MyQuery(
-    $first: Int = 100
-    $orderBy: pohSubmission_orderBy = registered
-  ) {
+  query MyQuery($first: Int = 1, $orderBy: pohSubmission_orderBy = registered) {
     pohsubmissions(first: $first, orderBy: $orderBy, orderDirection: desc) {
       creationTime
       id

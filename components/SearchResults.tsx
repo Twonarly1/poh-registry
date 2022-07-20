@@ -20,8 +20,6 @@ function SearchResults({
   let uri = requests[0]?.evidence[0]?.URI
   const uriToHttp = transformURI(uri)
   const uriToJson = transformURI(newUri)
-  const photo = transformURI(profile.photo)
-  const video = transformURI(profile.video)
 
   useEffect(() => {
     //@ts-ignore
@@ -29,19 +27,24 @@ function SearchResults({
       .then((response) => response.json())
       .then((data) => {
         setNewUri(data.fileURI)
+        console.log()
       })
   }, [uri])
 
-  useEffect(() => {
-    //@ts-ignore
-    fetch(uriToJson)
-      .then((response) => response.json())
-      .then((data) => {
-        setProfile(data)
-      })
-  }, [newUri])
+  // useEffect(() => {
+  //   //@ts-ignore
+  //   fetch(uriToJson)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setProfile(data)
+  //       console.log(newUri)
+  //       console.log('requests', requests)
+  //       console.log('uriToHttp', uriToHttp)
+  //       console.log('uriToJson', uriToJson)
+  //     })
+  // }, [newUri])
 
-  // console.log('profile:', profile)
+  console.log('profile:', newUri)
   return (
     <div className="mx-auto flex max-w-5xl cursor-default items-center  justify-between space-x-2  border-t bg-white px-4 py-2 last:rounded-b">
       <div className="flex items-center space-x-2">

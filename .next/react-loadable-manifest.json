@@ -101,6 +101,12 @@
       "static/chunks/node_modules_rainbow-me_rainbowkit_dist_rainbow-MRMCEQFY_js.js"
     ]
   },
+  "../node_modules/@rainbow-me/rainbowkit/dist/index.js -> ./steak-WN465AL2.js": {
+    "id": "../node_modules/@rainbow-me/rainbowkit/dist/index.js -> ./steak-WN465AL2.js",
+    "files": [
+      "static/chunks/node_modules_rainbow-me_rainbowkit_dist_steak-WN465AL2_js.js"
+    ]
+  },
   "../node_modules/@rainbow-me/rainbowkit/dist/index.js -> ./trust-V37V6CEN.js": {
     "id": "../node_modules/@rainbow-me/rainbowkit/dist/index.js -> ./trust-V37V6CEN.js",
     "files": [

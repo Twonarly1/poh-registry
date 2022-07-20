@@ -89,10 +89,10 @@ const Tabs = () => {
         <a
           key={index}
           onClick={() => handleClick(tab.name)}
-          className={`rounded-md px-3 py-2 text-sm font-medium outline-none ${
+          className={`cursor-pointer rounded-md px-3 py-2 text-sm font-medium outline-none ${
             tab.name == activeTab
               ? 'bg-gray-100 text-gray-500  '
-              : 'bg-white text-gray-500'
+              : 'bg-white text-gray-500 hover:bg-gray-50'
           }`}
         >
           <div className="flex items-center space-x-2">

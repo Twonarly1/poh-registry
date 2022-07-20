@@ -5,40 +5,30 @@ export function Footer() {
     <footer className="mx-auto flex w-full max-w-5xl flex-col items-center justify-center space-y-4 bg-slate-200 text-center text-gray-500">
       <div className="flex space-x-4">
         <a
-          className="font-medium  tracking-wide underline transition duration-500 ease-in-out hover:text-purple-800 hover:text-opacity-50"
+          className="footer hover:text-purple-800"
           href="https://github.com/Twonarly1/poh-tools"
         >
           GitHub
         </a>
         <a
-          className="font-medium tracking-wide underline transition duration-500 ease-in-out hover:text-blue-800 hover:text-opacity-50"
+          className="footer hover:text-blue-800"
           href="https://twitter.com/twonarly"
         >
           Twitter
         </a>
         <a
-          className="font-medium tracking-wide underline transition duration-500 ease-in-out hover:text-orange-800 hover:text-opacity-50"
+          className="footer hover:text-orange-800"
           href="https://www.proofofhumanity.id/"
           type="button"
         >
-          {/* <img
-              src="/images/proofofhumanity.png"
-              className="h-8 w-8 rotate-12 rounded-full"
-              alt=""
-            /> */}
           POH
         </a>
 
         <a
-          className="font-medium tracking-wide underline transition duration-500 ease-in-out hover:text-green-800 hover:text-opacity-50"
+          className="footer hover:text-green-800"
           href="https://linktr.ee/proofofhumanity"
           role="button"
         >
-          {/* <img
-              src="/images/linktree.svg"
-              className=" h-8 w-8 rotate-12 rounded-full"
-              alt=""
-            /> */}
           LinkTree
         </a>
       </div>
