@@ -69,7 +69,11 @@ const Tabs = () => {
     if (tabName == 'home') {
       router.push('/')
     } else {
-      router.push(`/${tabName}`)
+      if (tabName == 'reddit') {
+        router.push(`http://localhost:3002/`)
+      } else {
+        router.push(`/${tabName}`)
+      }
     }
   }
 
