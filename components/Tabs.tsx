@@ -70,7 +70,7 @@ const Tabs = () => {
       router.push('/')
     } else {
       if (tabName == 'reddit') {
-        router.push(`http://localhost:3002/`)
+        router.push(`https://poh-reddit.vercel.app/`)
       } else {
         router.push(`/${tabName}`)
       }

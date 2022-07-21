@@ -46,7 +46,7 @@ function MyApp({ Component, pageProps: { pageProps } }: AppProps) {
         >
           <Toaster />
           <Head>
-            <title>poh tools: registry</title>
+            <title>poh registry</title>
             <link rel="icon" href="/images/proofofhumanity.png" />
           </Head>
           <RecoilRoot>
