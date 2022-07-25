@@ -1,6 +1,7 @@
 import { Fragment } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
+import { classNames } from '../lib/utils'
 
 // add pagination to the individual filter lists.
 
@@ -9,10 +10,6 @@ type Props = {
   setSelected: any
   filter: any
   setEnteredText: any
-}
-
-function classNames(...classes: String[]) {
-  return classes.filter(Boolean).join(' ')
 }
 
 export default function ListBox({ selected, setSelected, filter }: Props) {
@@ -54,16 +51,16 @@ export default function ListBox({ selected, setSelected, filter }: Props) {
               leaveTo="opacity-0"
             >
               <Listbox.Options className="absolute right-0 z-10 mt-1 max-w-lg overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                {filter?.map((person: any) => (
+                {filter?.map((status: any) => (
                   <Listbox.Option
-                    key={person.id}
+                    key={status.id}
                     className={({ active }) =>
                       classNames(
                         active ? 'bg-indigo-600 text-white' : 'text-gray-900',
                         'relative cursor-default select-none py-2 pl-3 pr-9'
                       )
                     }
-                    value={person}
+                    value={status}
                   >
                     {({ selected, active }) => (
                       <>
@@ -71,7 +68,7 @@ export default function ListBox({ selected, setSelected, filter }: Props) {
                           {' '}
                           <div className="flex items-center">
                             <img
-                              src={person.avatar}
+                              src={status.avatar}
                               alt=""
                               className="h-6 w-6 flex-shrink-0 rounded-full"
                             />
@@ -81,10 +78,10 @@ export default function ListBox({ selected, setSelected, filter }: Props) {
                                 'ml-3 block truncate'
                               )}
                             >
-                              {person.name}
+                              {status.name}
                             </span>
                           </div>
-                          <div className="">{person.content}</div>
+                          <div className="">{status.content}</div>
                         </div>
 
                         {selected ? (

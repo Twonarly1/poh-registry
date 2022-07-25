@@ -5,58 +5,46 @@ import Head from 'next/head'
 import { ApolloProvider } from '@apollo/client'
 import { Toaster } from 'react-hot-toast'
 import { RecoilRoot } from 'recoil'
-import { chain, createClient, WagmiProvider } from 'wagmi'
-import apolloClient from '../apollo-client'
-import '@rainbow-me/rainbowkit/styles.css'
 import {
-  apiProvider,
+  WagmiConfig,
+  createClient,
+  defaultChains,
   configureChains,
-  getDefaultWallets,
-  lightTheme,
-  RainbowKitProvider,
-} from '@rainbow-me/rainbowkit'
+  chain,
+} from 'wagmi'
+import { publicProvider } from 'wagmi/providers/public'
+import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
+import apolloClient from '../apollo-client'
+import { Footer } from '../components/Footer'
 
-const { chains, provider } = configureChains(
-  [chain.mainnet],
-  [apiProvider.fallback()]
-)
-const { connectors } = getDefaultWallets({
-  appName: 'My RainbowKit App',
-  chains,
-})
-const wagmiClient = createClient({
-  autoConnect: true,
-  connectors,
+const { provider } = configureChains(defaultChains, [publicProvider()])
+
+const client = createClient({
+  autoConnect: false,
+  connectors: [
+    new MetaMaskConnector({
+      chains: [chain.mainnet],
+    }),
+  ],
+
   provider,
 })
 
 function MyApp({ Component, pageProps: { pageProps } }: AppProps) {
   return (
     <ApolloProvider client={apolloClient}>
-      <WagmiProvider client={wagmiClient}>
-        <RainbowKitProvider
-          coolMode={true}
-          chains={chains}
-          theme={lightTheme({
-            accentColor: '#FFAD33',
-            accentColorForeground: 'white',
-            borderRadius: 'small',
-            fontStack: 'system',
-          })}
-        >
-          <Toaster />
-          <Head>
-            <title>poh registry</title>
-            <link rel="icon" href="/images/proofofhumanity.png" />
-          </Head>
-          <RecoilRoot>
-            <div className="h-screen overflow-y-scroll bg-slate-200">
-              <Header />
-              <Component {...pageProps} />
-            </div>
-          </RecoilRoot>
-        </RainbowKitProvider>
-      </WagmiProvider>
+      <WagmiConfig client={client}>
+        <Toaster />
+        <Head>
+          <title>poh registry</title>
+          <link rel="icon" href="/images/proofofhumanity.png" />
+        </Head>
+        <RecoilRoot>
+          <Header />
+          <Component {...pageProps} />
+          <Footer />
+        </RecoilRoot>
+      </WagmiConfig>
     </ApolloProvider>
   )
 }

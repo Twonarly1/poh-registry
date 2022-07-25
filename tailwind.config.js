@@ -1,3 +1,5 @@
+/** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
@@ -5,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        xs: '400px',
+      },
       colors: {
         'primary-orange': '#FFAD33',
       },

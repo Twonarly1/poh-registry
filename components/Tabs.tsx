@@ -8,6 +8,7 @@ import {
 } from '@heroicons/react/outline'
 import toast from 'react-hot-toast'
 import { Tab } from '@headlessui/react'
+import { capitalizeFirstLetter } from '../lib/utils'
 
 type Tab = {
   name: string
@@ -84,11 +85,8 @@ const Tabs = () => {
     }
   }, [router.pathname])
 
-  function capitalizeFirstLetter(string: string) {
-    return string.charAt(0).toUpperCase() + string.slice(1)
-  }
   return (
-    <div className="hidden items-center text-gray-500 sm:inline-flex md:space-x-1">
+    <>
       {navTabs.map((tab: Tab, index: number) => (
         <a
           key={index}
@@ -105,7 +103,7 @@ const Tabs = () => {
           </div>
         </a>
       ))}
-    </div>
+    </>
   )
 }
 

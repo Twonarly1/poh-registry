@@ -8,7 +8,7 @@ import {
 import { useRecoilState } from 'recoil'
 import { voucheesStateModal } from '../atoms/voucheesAtom'
 import router from 'next/router'
-import { conciseEthAddress, formatUnix } from '../lib/utilities'
+import { conciseEthAddress, formatUnix } from '../lib/utils'
 import Avatar from './Avatar'
 import Timeago from 'react-timeago'
 

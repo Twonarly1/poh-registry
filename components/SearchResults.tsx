@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import router from 'next/router'
 import { LinkIcon } from '@heroicons/react/outline'
 import { useEnsName } from 'wagmi'
-import { conciseEthAddress, transformURI } from '../lib/utilities'
+import { conciseEthAddress, transformURI } from '../lib/utils'
 import Avatar from './Avatar'
+import { Submissions } from '../typings'
 
 function SearchResults({
   id,

@@ -8,7 +8,7 @@ type Props = {
 }
 
 const Avatar = ({ seed, large }: Props) => {
-  const { data: accountData } = useAccount()
+  const { address } = useAccount()
 
   return (
     <div
@@ -18,7 +18,7 @@ const Avatar = ({ seed, large }: Props) => {
     >
       <Image
         src={`https://avatars.dicebear.com/api/open-peeps/${
-          seed || accountData?.address || 'placeholder'
+          seed || address || 'placeholder'
         }.svg`}
         layout="fill"
       />

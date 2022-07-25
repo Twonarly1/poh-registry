@@ -13,13 +13,14 @@ import {
 import { useEnsName } from 'wagmi'
 import { Jelly } from '@uiball/loaders'
 import { CalendarIcon as CalendarIconFilled } from '@heroicons/react/solid'
-import { conciseEthAddress, formatUnix } from '../lib/utilities'
+import { conciseEthAddress, formatUnix } from '../lib/utils'
 import Ubi from './Ubi'
 import Copy from './Copy'
 import Avatar from './Avatar'
 import SidebarRow from './MenuList'
 import VoucheesModal from './VoucheesModal'
 import Timeago from 'react-timeago'
+import { Profile } from '../typings'
 
 const Profile = ({
   profile,

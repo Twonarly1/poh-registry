@@ -8,6 +8,7 @@ import {
 import Search from '../../components/Search'
 import SearchResults from '../../components/SearchResults'
 import Counter from '../../components/Counter'
+import { Submissions } from '../../typings'
 
 function registry() {
   const [nameSearched, setNameSearched] = useState('')

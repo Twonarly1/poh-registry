@@ -8,11 +8,12 @@ import {
   GET_SUBMISSIONS_BY_STATUS,
   GET_SUBMISSIONS_BY_ORDERING,
 } from '../../graphql/queries'
-import { transformURI } from '../../lib/utilities'
+import { transformURI } from '../../lib/utils'
 import Input from '../../components/Search'
 import Profile from '../../components/Profile'
 import ListBox from '../../components/Listbox'
 import SearchResults from '../../components/SearchResults'
+import { Submissions } from '../../typings'
 
 const ProfilePage = () => {
   const router = useRouter()

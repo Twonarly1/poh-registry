@@ -1,52 +1,31 @@
 import React from 'react'
+import Tabs from './Tabs'
 
 export function Footer() {
   return (
-    <footer className="mx-auto flex w-full max-w-5xl flex-col items-center justify-center space-y-4 bg-slate-200 text-center text-gray-500">
-      <div className="flex space-x-4">
-        <a
-          className="footer hover:text-purple-800"
-          href="https://github.com/Twonarly1/poh-tools"
-        >
-          GitHub
-        </a>
-        <a
-          className="footer hover:text-blue-800"
-          href="https://twitter.com/twonarly"
-        >
-          Twitter
-        </a>
-        <a
-          className="footer hover:text-orange-800"
-          href="https://www.proofofhumanity.id/"
-          type="button"
-        >
-          POH
-        </a>
-
-        <a
-          className="footer hover:text-green-800"
-          href="https://linktr.ee/proofofhumanity"
-          role="button"
-        >
-          LinkTree
-        </a>
+    <>
+      <div className=" w-full bg-white shadow-lg xs:hidden">
+        <div className="fixed bottom-0 z-50 mx-auto flex w-screen max-w-5xl items-center justify-between bg-white px-8 py-2 text-gray-500">
+          <Tabs />
+        </div>
       </div>
-      <div className="cursor-default">
-        <span className="cursor-default transition duration-500 ease-in-out hover:text-primary-orange hover:text-opacity-50">
-          © {new Date().getFullYear()} poh-tools
-        </span>
-        {' · '}
-        <span>
-          <span>Built by </span>
-          <a
-            className="underline transition duration-500 ease-in-out hover:text-primary-orange hover:text-opacity-50"
-            href="https://github.com/Twonarly1"
-          >
-            Twonarly
-          </a>
-        </span>
+      <div className="fixed bottom-0 w-full max-w-5xl items-center bg-slate-200 text-center  text-gray-500">
+        <div className="cursor-default">
+          <span className="cursor-default transition duration-500 ease-in-out hover:text-primary-orange hover:text-opacity-50">
+            © {new Date().getFullYear()} poh-tools
+          </span>
+          {' · '}
+          <span>
+            <span>Built by </span>
+            <a
+              className="underline transition duration-500 ease-in-out hover:text-primary-orange hover:text-opacity-50"
+              href="https://github.com/Twonarly1"
+            >
+              Twonarly
+            </a>
+          </span>
+        </div>
       </div>
-    </footer>
+    </>
   )
 }

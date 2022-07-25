@@ -7,6 +7,7 @@ import {
   GET_SUBMISSIONS_BY_STATUS,
 } from '../graphql/queries'
 import ListBox from '../components/Listbox'
+import { Submissions } from '../typings'
 
 const filter = () => {
   const [enteredText, setEnteredText] = useState('')
@@ -15,47 +16,45 @@ const filter = () => {
 
   const filter = [
     {
-      id: 1,
       name: 'registered',
       avatar: '/images/filter/badgecheck.svg',
       content: counters?.registered,
     },
     {
-      id: 2,
       name: 'Vouching',
       avatar: '/images/filter/hand.svg',
       content: counters?.vouchingPhase,
     },
     {
-      id: 3,
       name: 'PendingRegistration',
       avatar: '/images/filter/fire.svg',
       content: counters?.pendingRegistration,
     },
     {
-      id: 4,
       name: 'PendingRemoval',
       avatar: '/images/filter/pause.svg',
       content: counters?.pendingRemoval,
     },
 
     {
-      id: 5,
       name: 'expired - todo',
       avatar: '/images/filter/clock.svg',
       content: counters?.expired,
     },
     {
-      id: 6,
       name: 'removed',
       avatar: '/images/filter/ban.svg',
       content: counters?.removed,
     },
     {
-      id: 7,
       name: 'ChallengedRegistration - todo',
       avatar: '/images/filter/flag.svg',
       content: counters?.challengedRegistration,
+    },
+    {
+      name: 'ChallengedRemoval - todo',
+      avatar: '/images/filter/flag.svg',
+      content: counters?.challengedRemoval,
     },
   ]
   const [selected, setSelected] = useState(filter[0])

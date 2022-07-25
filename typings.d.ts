@@ -1,4 +1,4 @@
-type Input = {
+export type Input = {
   setNameSearched: any
   setAddressSearched: any
   submitAddress: any
@@ -6,7 +6,7 @@ type Input = {
   setEnteredText: any
 }
 
-type Submissions = {
+export type Submissions = {
   creationTime: !pohBigInt
   id: string
   index: number
@@ -19,7 +19,7 @@ type Submissions = {
   submission?: any
 }
 
-type pohCounter = {
+export type pohCounter = {
   id: !ID
   vouchingPhase: !pohBigInt
   pendingRegistration: !pohBigInt
@@ -31,7 +31,7 @@ type pohCounter = {
   removed: !pohBigInt
 }
 
-type Profile = {
+export type Profile = {
   ethAddress: string
   video: any
   photo: string | undefined

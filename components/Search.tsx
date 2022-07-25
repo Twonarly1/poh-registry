@@ -1,5 +1,6 @@
 import React from 'react'
 import { SearchIcon } from '@heroicons/react/outline'
+import { Input } from '../typings'
 
 const Search = ({
   submitAddress,
