@@ -1,33 +1,27 @@
 import { useRouter } from 'next/router'
-import React, { SVGProps, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   SearchIcon,
   FilterIcon,
   ChatAlt2Icon,
   HomeIcon,
 } from '@heroicons/react/outline'
-import toast from 'react-hot-toast'
-import { Tab } from '@headlessui/react'
 import { capitalizeFirstLetter } from '../lib/utils'
-
-type Tab = {
-  name: string
-  Icon: (props: SVGProps<SVGSVGElement>) => JSX.Element
-}
+import { Tab } from '../typings'
 
 const navTabs: Tab[] = [
   {
     name: 'home',
-    Icon: HomeIcon,
+    Icon: SearchIcon,
   },
   {
     name: 'reddit',
     Icon: ChatAlt2Icon,
   },
-  {
-    name: 'registry',
-    Icon: SearchIcon,
-  },
+  // {
+  //   name: 'registry',
+  //   Icon: SearchIcon,
+  // },
   {
     name: 'filter',
     Icon: FilterIcon,
@@ -35,34 +29,6 @@ const navTabs: Tab[] = [
 ]
 
 const Tabs = () => {
-  function alert() {
-    toast.error(
-      (t) => (
-        <div className="flex items-center space-x-2">
-          Please see <b className="px-1 text-green-800">apollo-client.js</b>
-          <button
-            className="rounded-lg border-2 border-primary-orange px-2 py-1"
-            onClick={() => toast.dismiss(t.id)}
-          >
-            OK!
-          </button>
-        </div>
-      ),
-      {
-        style: {
-          border: '1px solid #713200',
-          padding: '16px',
-          color: '#713200',
-        },
-        position: 'bottom-center',
-
-        iconTheme: {
-          primary: 'rgb(255, 3, 3)',
-          secondary: '#FFFAEE',
-        },
-      }
-    )
-  }
   const router = useRouter()
   const [activeTab, setActiveTab] = useState<string>('')
 

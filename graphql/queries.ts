@@ -138,3 +138,58 @@ export const GET_SUBMISSIONS_BY_ORDERING = gql`
     }
   }
 `
+
+export const GET_ALL_SUBMISSIONS = gql`
+  query indexQuery(
+    $skip: Int = 0
+    $first: Int = 10
+    $where: pohSubmission_filter = { removed: false }
+    $search: String = ""
+    $address: ID = ""
+  ) {
+    pohsubmissions(
+      orderBy: creationTime
+      orderDirection: desc
+      skip: $skip
+      first: $first
+      where: $where
+    ) {
+      ...pohSubmissionFragment
+    }
+    contains: pohsubmissions(where: { name_contains: $search }) {
+      ...pohSubmissionFragment
+    }
+    byAddress: pohsubmissions(where: { id: $address }) {
+      ...pohSubmissionFragment
+    }
+    pohcounter(id: 1) {
+      vouchingPhase
+      pendingRemoval
+      pendingRegistration
+      challengedRemoval
+      challengedRegistration
+      registered
+      expired
+      removed
+    }
+  }
+
+  fragment pohSubmissionFragment on pohSubmission {
+    id
+    status
+    registered
+    submissionTime
+    name
+    disputed
+    requests(
+      orderBy: creationTime
+      orderDirection: desc
+      first: 1
+      where: { registration: true }
+    ) {
+      evidence(orderBy: creationTime, first: 1) {
+        URI
+      }
+    }
+  }
+`

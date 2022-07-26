@@ -14,7 +14,7 @@ export type Submissions = {
   registered: !Boolean
   setEnteredText?: any
   submissionTime?: pohBigInt
-  name: any
+  name: string
   requests: !pohRequest
   submission?: any
 }
@@ -33,8 +33,13 @@ export type pohCounter = {
 
 export type Profile = {
   ethAddress: string
-  video: any
+  video: string | undefined
   photo: string | undefined
   submission: any
   profile: any
+}
+
+export type Tab = {
+  name: string
+  Icon: (props: SVGProps<SVGSVGElement>) => JSX.Element
 }

@@ -3,8 +3,6 @@ import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
 import { classNames } from '../lib/utils'
 
-// add pagination to the individual filter lists.
-
 type Props = {
   selected: any
   setSelected: any
@@ -51,9 +49,9 @@ export default function ListBox({ selected, setSelected, filter }: Props) {
               leaveTo="opacity-0"
             >
               <Listbox.Options className="absolute right-0 z-10 mt-1 max-w-lg overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                {filter?.map((status: any) => (
+                {filter?.map((status: any, index: number) => (
                   <Listbox.Option
-                    key={status.id}
+                    key={index}
                     className={({ active }) =>
                       classNames(
                         active ? 'bg-indigo-600 text-white' : 'text-gray-900',

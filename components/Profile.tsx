@@ -57,7 +57,6 @@ const Profile = ({
               </div>
             </div>
             <div>
-              {' '}
               <div className="ml-2 mt-7 hidden font-mono text-2xl font-medium md:flex">
                 {ethAddress}
               </div>
@@ -193,8 +192,9 @@ const Profile = ({
               </div>
             </>
           )}
-          {submission?.vouchees?.map((submission: any) => (
+          {submission?.vouchees?.map((submission: any, index: number) => (
             <div
+              key={index}
               className="mt-4 inline-flex"
               onClick={() => router.push(`/registry/${submission.id}`)}
             >
@@ -202,21 +202,10 @@ const Profile = ({
                 <span className="">
                   <Avatar seed={submission.id as string} />
                 </span>
-              </span>{' '}
+              </span>
             </div>
           ))}
         </div>
-        {/* photo small screen */}
-        {/* <div className="md:hidden">
-          <img
-            className="mx-auto mt-6 h-80 w-fit rounded object-cover md:hidden"
-            src={photo}
-            alt="Registry Photo"
-          />
-          <VideoPlayer Video={video} />
-        </div> */}
-
-        {/* <NftWallet id={submission?.id} /> */}
       </div>
     </div>
   )

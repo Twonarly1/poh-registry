@@ -16,8 +16,7 @@ const Counter = () => {
     Number(data?.vouchingPhase),
   ]
   const total = numbers.reduce((total, number) => total + number, 0)
-  const count = total
-  const letters = count.toString().split('')
+  const letters = total.toString().split('')
 
   return (
     <div className="flex-col-2  flex items-center justify-center gap-4 pb-6">

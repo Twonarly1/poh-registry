@@ -1,10 +1,6 @@
 import React, { Fragment } from 'react'
 import { Transition, Dialog } from '@headlessui/react'
-import {
-  InformationCircleIcon,
-  VideoCameraIcon,
-  XIcon,
-} from '@heroicons/react/outline'
+import { InformationCircleIcon, XIcon } from '@heroicons/react/outline'
 import { useRecoilState } from 'recoil'
 import { voucheesStateModal } from '../atoms/voucheesAtom'
 import router from 'next/router'
@@ -12,6 +8,7 @@ import { conciseEthAddress, formatUnix } from '../lib/utils'
 import Avatar from './Avatar'
 import Timeago from 'react-timeago'
 
+//fix this
 type Props = {
   submission: any
 }
@@ -19,18 +16,16 @@ type Props = {
 const VoucheesModal = ({ submission }: Props) => {
   let [isOpen, setIsOpen] = useRecoilState(voucheesStateModal)
 
-  // console.log('vouccheesModal', submission)
-
   return (
     <>
-      <div
+      <button
         className="ml-1"
         onClick={() => {
           setIsOpen(true)
         }}
       >
-        <InformationCircleIcon className="h-6  w-6 cursor-pointer items-center" />{' '}
-      </div>
+        <InformationCircleIcon className="h-6  w-6 cursor-pointer items-center" />
+      </button>
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
@@ -79,33 +74,33 @@ const VoucheesModal = ({ submission }: Props) => {
                 <button onClick={() => setIsOpen(false)}>
                   <XIcon className="absolute  top-4 right-4 w-7 text-gray-400" />
                 </button>
-                <div className="bg-white ">
-                  {submission?.vouchees?.map((submission: any, key: any) => (
-                    <div
-                      className="mt-1 flex cursor-pointer items-center justify-between rounded-full text-sm "
-                      onClick={() => {
-                        router.push(`/registry/${submission.id}`)
-                        setIsOpen(false)
-                      }}
-                      key={submission.id}
-                    >
-                      <div className="flex items-center space-x-3">
-                        <span className="hover:rounded-full hover:ring-2">
-                          <Avatar seed={submission.id as string} />
-                        </span>
-                        <p className="font-bold text-black">
-                          {submission.name}
-                        </p>
-                        <p> {conciseEthAddress(submission.id)}</p>
-                      </div>
-                      <p className="text-xs">
+                <div className="bg-white">
+                  {submission?.vouchees?.map(
+                    (submission: any, index: number) => (
+                      <div
+                        className="mt-1 flex cursor-pointer items-center justify-between rounded-full text-sm "
+                        onClick={() => {
+                          router.push(`/registry/${submission.id}`)
+                          setIsOpen(false)
+                        }}
+                        key={index}
+                      >
+                        <div className="flex items-center space-x-3">
+                          <p className="hover:rounded-full hover:ring-2">
+                            <Avatar seed={submission.id as string} />
+                          </p>
+                          <div className="font-bold text-black">
+                            {submission.name}
+                          </div>
+                          <div> {conciseEthAddress(submission.id)}</div>
+                        </div>
                         <Timeago
                           //@ts-ignore
                           date={formatUnix(submission?.submissionTime)}
                         />
-                      </p>
-                    </div>
-                  ))}
+                      </div>
+                    )
+                  )}
                 </div>
               </div>
             </Transition.Child>

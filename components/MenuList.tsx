@@ -1,6 +1,6 @@
 import React, { SVGProps } from 'react'
 
-interface Props {
+type Props = {
   Icon: (props: SVGProps<SVGSVGElement>) => JSX.Element
   title: string
   content?: any
@@ -19,9 +19,9 @@ const SidebarRow = ({ Icon, title, onClick, content }: Props) => {
           {title}:
         </p>
       </div>
-      <p className="ml-2 mt-[2px] font-light text-gray-400 group-hover:font-bold">
+      <div className="ml-2 mt-[2px] font-light text-gray-400 group-hover:font-bold">
         {content}
-      </p>
+      </div>
     </div>
   )
 }
