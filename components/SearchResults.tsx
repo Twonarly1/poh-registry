@@ -4,7 +4,7 @@ import { LinkIcon } from '@heroicons/react/outline'
 import { useEnsName } from 'wagmi'
 import { conciseEthAddress, transformURI } from '../lib/utils'
 import Avatar from './Avatar'
-import { Profile, Submissions } from '../typings'
+import { Submissions } from '../typings'
 
 function SearchResults({
   id,
@@ -17,36 +17,25 @@ function SearchResults({
     address: id,
   })
   const [newUri, setNewUri] = useState('')
-  const [profile, setProfile] = useState<Profile>()
   let uri = requests[0]?.evidence[0]?.URI
   const uriToHttp = transformURI(uri)
   const uriToJson = transformURI(newUri)
 
   useEffect(() => {
-    //@ts-ignore
-    fetch(uriToHttp)
-      .then((response) => response.json())
-      .then((data) => {
-        setNewUri(data.fileURI)
-        console.log()
-      })
+    if (uriToHttp) {
+      fetch(uriToHttp)
+        .then((response) => response.json())
+        .then((data) => {
+          setNewUri(data.fileURI)
+          console.log()
+        })
+    }
   }, [uri])
 
   // console.log('profile:', newUri)
   return (
-    <div className="mx-auto flex max-w-5xl cursor-default items-center  justify-between space-x-2  border-t bg-white px-4 py-2 last:rounded-b">
-      <div className="flex items-center gap-2">
-        <p className="w-5">{index + 1}</p>
-        <Avatar seed={id} />
-        <div className="items-center xs:flex xs:gap-2">
-          <p className="text-left font-bold text-black">{name}</p>
-          <p className="text-left text-gray-400">
-            {ensData || conciseEthAddress(id)}
-          </p>
-        </div>
-      </div>
-      <button
-        className=""
+    <div className="mx-auto max-w-2xl  cursor-pointer border-t bg-white px-2 py-1 last:rounded-b xs:px-4">
+      <a
         onClick={(e) => {
           e.preventDefault()
           router.push(`/registry/${id}`).then(() => {
@@ -54,14 +43,27 @@ function SearchResults({
           })
         }}
         key={id}
+        target="_blank"
+        className="flex w-auto items-center justify-between"
+        rel="noreferrer"
       >
-        <a key={id} target="_blank" rel="noreferrer">
-          <div className="hidden cursor-pointer rounded-full bg-primary-orange px-3 text-white md:flex">
-            View
+        <div className="flex items-center gap-2">
+          <p className="w-5">{index + 1}</p>
+          <Avatar seed={id} />
+          <div className="items-center sm:flex xs:gap-2">
+            <p className="w-32 truncate text-left text-xs font-bold text-black xs:w-auto xs:text-sm">
+              {name}
+            </p>
+            <p className="truncate text-left text-xs text-gray-400  xs:text-sm">
+              {ensData || conciseEthAddress(id)}
+            </p>
           </div>
-          <LinkIcon className="h-5 w-5 cursor-pointer items-center text-primary-orange md:hidden" />
-        </a>
-      </button>
+        </div>
+        <div className="hidden cursor-pointer rounded-full  bg-white px-3 text-primary-orange hover:bg-primary-orange hover:text-white sm:flex">
+          View
+        </div>
+        <LinkIcon className="h-5 w-5 -rotate-12 cursor-pointer items-center text-primary-orange sm:hidden" />
+      </a>
     </div>
   )
 }

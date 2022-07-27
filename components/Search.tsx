@@ -2,43 +2,39 @@ import React from 'react'
 import { SearchIcon } from '@heroicons/react/outline'
 import { Input } from '../typings'
 
-const Search = ({
-  submitAddress,
-  enteredText,
-  setEnteredText,
-  setNameSearched,
-  setAddressSearched,
-}: Input) => {
+const Search = ({ handleSubmit, enteredText, setEnteredText }: Input) => {
   return (
-    <form
-      className=""
-      onSubmit={(e) => {
-        e.preventDefault()
-        submitAddress()
-      }}
-    >
-      <div className="relative mx-auto mt-0 rounded-full shadow-sm hover:scale-105">
-        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-          <SearchIcon className="h-5 w-5 text-gray-500" aria-hidden="true" />
+    <div className="mx-auto max-w-lg p-2 pb-0 text-center ">
+      <form
+        className=""
+        onSubmit={(e) => {
+          e.preventDefault()
+          handleSubmit()
+        }}
+      >
+        <div className="relative mx-auto mt-0 rounded-full shadow-sm hover:scale-105">
+          <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+            <SearchIcon className="h-5 w-5 text-gray-500" aria-hidden="true" />
+          </div>
+          <input
+            className="border-primary-light block w-full rounded-full border-none bg-white py-3 pl-10 text-left text-lg font-semibold shadow-none outline-none placeholder:text-sm focus:border-none focus:bg-white focus:shadow-none focus:outline-none focus:ring-0 active:bg-white dark:text-black md:w-full md:max-w-lg xs:placeholder:text-lg"
+            type="text"
+            value={enteredText}
+            // toDo: add ENS support.
+            placeholder="Search registry by name or address"
+            required
+            autoComplete="true"
+            spellCheck="false"
+            onChange={(e) => {
+              e.preventDefault
+              setEnteredText(e.target.value)
+              //setNameSearched(e.target.value)
+              //setAddressSearched(e.target.value)
+            }}
+          />
         </div>
-        <input
-          className="border-primary-light block w-full rounded-full border-none bg-white py-3 pl-10 text-left text-lg font-semibold shadow-none outline-none focus:border-none focus:bg-white focus:shadow-none focus:outline-none focus:ring-0 active:bg-white dark:text-black md:w-full md:max-w-lg"
-          type="text"
-          value={enteredText}
-          // toDo: add ENS support.
-          placeholder="Search registry by name or address"
-          required
-          autoComplete="true"
-          spellCheck="false"
-          onChange={(e) => {
-            e.preventDefault
-            setEnteredText(e.target.value)
-            setNameSearched(e.target.value)
-            setAddressSearched(e.target.value)
-          }}
-        />
-      </div>
-    </form>
+      </form>
+    </div>
   )
 }
 

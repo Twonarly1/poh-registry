@@ -1,4 +1,3 @@
-import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import Header from '../components/Header'
 import Head from 'next/head'
@@ -15,7 +14,8 @@ import {
 import { publicProvider } from 'wagmi/providers/public'
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
 import apolloClient from '../apollo-client'
-import { Footer } from '../components/Footer'
+import Footer from '../components/Footer'
+import '../styles/globals.css'
 
 const { provider } = configureChains(defaultChains, [publicProvider()])
 
@@ -26,7 +26,6 @@ const client = createClient({
       chains: [chain.mainnet],
     }),
   ],
-
   provider,
 })
 

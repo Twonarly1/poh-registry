@@ -32,7 +32,7 @@ export const ScrollToTop = () => {
   }, [])
 
   return (
-    <div className="relative z-50 flex items-center py-4 text-center">
+    <div className="relative flex items-center py-4 pb-20 text-center">
       <div className="flex-grow border-t border-gray-600 border-opacity-50"></div>
 
       <button

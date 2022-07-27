@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import pohIcon from '../public/images/proofofhumanity.png'
 import ConnectButton from './ConnectButton'
 
-const Header = () => {
+export default function Header() {
   const router = useRouter()
 
   return (
@@ -17,7 +17,7 @@ const Header = () => {
             className="relative h-12 w-12 flex-shrink-0 cursor-pointer sm:flex"
           >
             <Image
-              priority
+              loading="lazy"
               placeholder="blur"
               objectFit="contain"
               layout="fill"
@@ -37,5 +37,3 @@ const Header = () => {
     </>
   )
 }
-
-export default Header

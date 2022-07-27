@@ -1,11 +1,6 @@
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import {
-  SearchIcon,
-  FilterIcon,
-  ChatAlt2Icon,
-  HomeIcon,
-} from '@heroicons/react/outline'
+import { SearchIcon, FilterIcon, ChatAlt2Icon } from '@heroicons/react/outline'
 import { capitalizeFirstLetter } from '../lib/utils'
 import { Tab } from '../typings'
 

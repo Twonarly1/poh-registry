@@ -1,4 +1,4 @@
-import { CheckIcon, XIcon } from '@heroicons/react/outline'
+import { XIcon } from '@heroicons/react/outline'
 import { useAccount, useEnsName, useNetwork, useSwitchNetwork } from 'wagmi'
 import { conciseEthAddress } from '../lib/utils'
 

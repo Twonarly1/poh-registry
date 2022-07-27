@@ -14,7 +14,7 @@ const tokenImage =
   'https://raw.githubusercontent.com/justinkalland/add-ubi-to-metamask/master/logo.png'
 
 const Ubi = ({ ethAddress }: UbiProps) => {
-  const [price, setPrice] = useState(-1)
+  const [price, setPrice] = useState<number>(-1)
   const { data, isLoading, isError } = useBalance({
     addressOrName: ethAddress,
     watch: false,

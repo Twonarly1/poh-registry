@@ -17,6 +17,7 @@ const Avatar = ({ seed, large }: Props) => {
       }`}
     >
       <Image
+        priority
         src={`https://avatars.dicebear.com/api/open-peeps/${
           seed || address || 'placeholder'
         }.svg`}

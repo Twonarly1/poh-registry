@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { SVGProps, useEffect, useState } from 'react'
 import SearchResults from '../components/SearchResults'
 import { useQuery } from '@apollo/client'
 import {
-  GET_REGISTRY_COUNTERS,
+  GET_ALL_SUBMISSIONS,
   GET_SUBMISSIONS_BY_ORDERING,
   GET_SUBMISSIONS_BY_STATUS,
 } from '../graphql/queries'
@@ -11,9 +11,8 @@ import { Submissions } from '../typings'
 
 const filter = () => {
   const [enteredText, setEnteredText] = useState('')
-  const { data: countersData } = useQuery(GET_REGISTRY_COUNTERS)
+  const { data: countersData } = useQuery(GET_ALL_SUBMISSIONS)
   const counters = countersData?.pohcounter
-
   const filter = [
     {
       name: 'registered',
@@ -64,15 +63,17 @@ const filter = () => {
   const { data } = useQuery(GET_SUBMISSIONS_BY_STATUS, {
     variables: { status: selected.name },
   })
-  const status: Submissions[] = data?.pohsubmissions
-  console.log('status', status)
 
   //order
   const { data: orderingData } = useQuery(GET_SUBMISSIONS_BY_ORDERING, {
     variables: { orderBy: selected.name },
   })
-  const ordered: Submissions[] = orderingData?.pohsubmissions
-  console.log('ordered:', ordered)
+  // const ordered: Submissions[] = orderingData?.pohsubmissions
+  //  console.log('ordered:', ordered)
+
+  const status: Submissions[] =
+    data?.pohsubmissions || orderingData?.pohsubmissions
+  console.log('status', status)
 
   return (
     <div className="mx-auto mt-0 max-w-5xl p-4 text-center">
@@ -86,22 +87,8 @@ const filter = () => {
       </div>
 
       <div className="mt-2">
-        {(status &&
+        {status &&
           status?.map((status, i) => (
-            <SearchResults
-              creationTime={status?.creationTime}
-              id={status?.id}
-              index={i}
-              key={status.id}
-              name={status?.name}
-              registered={status?.registered}
-              requests={status?.requests}
-              setEnteredText={setEnteredText}
-              status={status?.status}
-              submissionTime={status?.submissionTime}
-            />
-          ))) ||
-          ordered?.map((status, i) => (
             <SearchResults
               creationTime={status?.creationTime}
               id={status?.id}

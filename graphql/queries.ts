@@ -1,20 +1,6 @@
 import { gql } from '@apollo/client'
 
 // The queries below are for the POH Registry:
-export const GET_REGISTRY_COUNTERS = gql`
-  query MyQuery {
-    pohcounter(id: "1") {
-      vouchingPhase
-      pendingRemoval
-      pendingRegistration
-      challengedRemoval
-      challengedRegistration
-      registered
-      expired
-      removed
-    }
-  }
-`
 
 export const GET_SUBMISSION_BY_ADDRESS = gql`
   query MyQuery($id: ID = "") {
@@ -39,54 +25,69 @@ export const GET_SUBMISSION_BY_ADDRESS = gql`
   }
 `
 
-export const GET_SUBMISSION_BY_NAME = gql`
-  query MyQuery($name_contains_nocase: String) {
-    pohsubmissions(where: { name_contains_nocase: $name_contains_nocase }) {
-      creationTime
-      id
-      name
-      registered
-      removed
-      requests {
-        evidence {
-          URI
-        }
-      }
-      status
-      submissionTime
-      vouchees {
-        id
-        name
-        submissionTime
-      }
-    }
-  }
-`
+// export const GET_REGISTRY_COUNTERS = gql`
+//   query MyQuery {
+//     pohcounter(id: "1") {
+//       vouchingPhase
+//       pendingRemoval
+//       pendingRegistration
+//       challengedRemoval
+//       challengedRegistration
+//       registered
+//       expired
+//       removed
+//     }
+//   }
+// `
 
-export const GET_SUBMISSION_BY_ADDRESS_OR_NAME = gql`
-  query MyQuery($id: ID = "", $name_contains_nocase: String) {
-    pohsubmissions(
-      where: { id: $id, name_contains_nocase: $name_contains_nocase }
-    ) {
-      creationTime
-      id
-      name
-      registered
-      submissionTime
-      status
-      requests {
-        evidence {
-          URI
-        }
-      }
-      vouchees {
-        id
-        name
-        submissionTime
-      }
-    }
-  }
-`
+// export const GET_SUBMISSION_BY_NAME = gql`
+//   query MyQuery($name_contains_nocase: String) {
+//     pohsubmissions(where: { name_contains_nocase: $name_contains_nocase }) {
+//       creationTime
+//       id
+//       name
+//       registered
+//       removed
+//       requests {
+//         evidence {
+//           URI
+//         }
+//       }
+//       status
+//       submissionTime
+//       vouchees {
+//         id
+//         name
+//         submissionTime
+//       }
+//     }
+//   }
+// `
+
+// export const GET_SUBMISSION_BY_ADDRESS_OR_NAME = gql`
+//   query MyQuery($id: ID = "", $name_contains_nocase: String) {
+//     pohsubmissions(
+//       where: { id: $id, name_contains_nocase: $name_contains_nocase }
+//     ) {
+//       creationTime
+//       id
+//       name
+//       registered
+//       submissionTime
+//       status
+//       requests {
+//         evidence {
+//           URI
+//         }
+//       }
+//       vouchees {
+//         id
+//         name
+//         submissionTime
+//       }
+//     }
+//   }
+// `
 
 export const GET_SUBMISSIONS_BY_STATUS = gql`
   query MyQuery($first: Int = 5, $status: pohStatus = PendingRegistration) {
@@ -139,10 +140,11 @@ export const GET_SUBMISSIONS_BY_ORDERING = gql`
   }
 `
 
+// master query - reduce entire contents to just this query
 export const GET_ALL_SUBMISSIONS = gql`
   query indexQuery(
     $skip: Int = 0
-    $first: Int = 10
+    $first: Int = 13
     $where: pohSubmission_filter = { removed: false }
     $search: String = ""
     $address: ID = ""
@@ -178,6 +180,7 @@ export const GET_ALL_SUBMISSIONS = gql`
     id
     status
     registered
+    creationTime
     submissionTime
     name
     disputed
@@ -190,6 +193,11 @@ export const GET_ALL_SUBMISSIONS = gql`
       evidence(orderBy: creationTime, first: 1) {
         URI
       }
+    }
+    vouchees {
+      id
+      name
+      submissionTime
     }
   }
 `

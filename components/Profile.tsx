@@ -1,7 +1,6 @@
 import React from 'react'
 import router from 'next/router'
 import {
-  ArrowDownIcon,
   BadgeCheckIcon,
   BanIcon,
   CalendarIcon,
@@ -41,15 +40,16 @@ const Profile = ({
         </p>
       </div>
     )
+  // console.log(submission, profile, ethAddress, photo)
 
   return (
     <div className="bg-slate-200">
-      <div className="mx-auto mt-10 max-w-5xl items-center rounded bg-white pb-12 shadow-lg">
+      <div className="mx-auto mt-10 max-w-5xl items-center bg-white pb-6 shadow-lg">
         <div className="flex items-center space-x-2">
           {/* user identification */}
-          <div className="mx-auto -mt-5 flex">
+          <div className="mx-auto -mt-5 flex items-center">
             <Avatar seed={ethAddress as string} large />
-            <div className="ml-2 mt-6 font-mono text-3xl font-medium md:hidden">
+            <div className="ml-2 mt-6 font-mono font-medium md:hidden xs:text-2xl">
               {conciseEthAddress(ethAddress)}
               <br />
               <div className="text-left text-sm tracking-wide text-gray-400">
@@ -72,18 +72,20 @@ const Profile = ({
           </div>
         </div>
 
-        {/* photo large screen */}
         <div className="mt-6 text-lg text-gray-400">
+          {/* photo large screen */}
           <div className="md:inline-flex ">
             {photo && (
               <img
-                className="mx-auto flex h-80 w-fit rounded object-cover"
+                className="mx-auto flex h-80 w-fit  object-cover"
                 src={photo}
                 alt="Registry Photo"
               />
             )}
             {/* <VideoPlayer Video={video} /> */}
           </div>
+
+          {/* name / displayName / bio */}
           <p className="mt-4 text-4xl font-bold">{profile.name}</p>
           <p className="text-sm uppercase">
             {profile.firstName}&nbsp;{profile.lastName}
@@ -97,7 +99,7 @@ const Profile = ({
                 <SidebarRow
                   Icon={BadgeCheckIcon}
                   title="Registered"
-                  content=""
+                  content={submission?.registered == true ? 'true' : 'false'}
                 />
               </div>
               <Ubi ethAddress={ethAddress} /> {/* currency converter */}
@@ -196,17 +198,18 @@ const Profile = ({
             <div
               key={index}
               className="mt-4 inline-flex"
-              onClick={() => router.push(`/registry/${submission.id}`)}
+              onClick={() => router.push(`/registry/${submission?.id}`)}
             >
               <span className="-ml-2 inline-block w-8 cursor-pointer rounded-full md:ml-0  ">
                 <span className="">
-                  <Avatar seed={submission.id as string} />
+                  <Avatar seed={submission?.id as string} />
                 </span>
               </span>
             </div>
           ))}
         </div>
       </div>
+      <div className="h-24 bg-slate-200" id="spacer"></div>
     </div>
   )
 }

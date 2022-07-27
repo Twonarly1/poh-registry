@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useLazyQuery, useQuery } from '@apollo/client'
 import {
-  GET_SUBMISSION_BY_NAME,
   GET_SUBMISSION_BY_ADDRESS,
+  GET_ALL_SUBMISSIONS,
 } from '../../graphql/queries'
 import { transformURI } from '../../lib/utils'
 import Input from '../../components/Search'
@@ -16,71 +16,58 @@ const ProfilePage = () => {
   const address = router.asPath.toLowerCase().replace('/registry/', '')
   const [newUri, setNewUri] = useState('')
   const [profile, setProfile] = useState<any>('')
-  const [nameSearched, setNameSearched] = useState('')
-  const [addressSearched, setAddressSearched] = useState('')
-  const [enteredText, setEnteredText] = useState('')
+  const [enteredText, setEnteredText] = useState<any>('')
+  //query all submissions when <Input> is submitted
+  const [searchAll, { data: responseData }] = useLazyQuery(GET_ALL_SUBMISSIONS)
+  //query submission from ethAddress pulled from pathName
   const { data } = useQuery(GET_SUBMISSION_BY_ADDRESS, {
     variables: { id: address },
   })
-  const [searchName, { data: nameSearchedData }] = useLazyQuery(
-    GET_SUBMISSION_BY_NAME
-  )
-  const [searchAddress, { data: addressSearchedData }] = useLazyQuery(
-    GET_SUBMISSION_BY_ADDRESS
-  )
-  const submissions: Submissions[] = nameSearchedData?.pohsubmissions
-  const submission =
-    data?.pohsubmissions[0] || addressSearchedData?.pohsubmissions[0]
+  const submissions: Submissions[] = responseData?.contains
+  const submission = data?.pohsubmissions[0] || responseData?.byAddress[0]
   let uri = submission?.requests[0].evidence[0].URI
   const uriToHttp = transformURI(uri)
   const uriToJson = transformURI(newUri)
   const photo = transformURI(profile.photo)
   const video = transformURI(profile.video)
 
-  useEffect(() => {}, [enteredText, nameSearched, addressSearched])
-
-  const submitAddress = async () => {
-    if (addressSearched.length == 42) {
-      router.replace('/registry/' + enteredText).then(() => router.reload())
+  const handleSubmit = async () => {
+    if (enteredText.length == 42) {
+      router.replace('/registry/' + enteredText)
     } else {
-      searchAddress({
-        variables: { id: addressSearched },
-      })
-      searchName({
-        variables: { name_contains_nocase: nameSearched },
+      searchAll({
+        variables: {
+          search: enteredText,
+          address: enteredText,
+        },
       })
     }
   }
 
   useEffect(() => {
-    //@ts-ignore
-    fetch(uriToHttp)
-      .then((response) => response.json())
-      .then((data) => {
-        setNewUri(data.fileURI)
-      })
-  }, [uri])
-
-  useEffect(() => {
-    //@ts-ignore
-    fetch(uriToJson)
-      .then((response) => response.json())
-      .then((data) => {
-        setProfile(data)
-      })
-  }, [newUri])
+    if (uriToHttp) {
+      fetch(uriToHttp)
+        .then((response) => response.json())
+        .then((data) => {
+          setNewUri(data.fileURI)
+        })
+    }
+    if (uriToJson) {
+      fetch(uriToJson)
+        .then((response) => response.json())
+        .then((data) => {
+          setProfile(data)
+        })
+    }
+  }, [uri, newUri])
 
   return (
-    <div className="mx-auto mt-4 w-full max-w-5xl p-2 text-center">
-      <div className="mx-auto max-w-lg text-center ">
-        <Input
-          submitAddress={submitAddress}
-          enteredText={enteredText}
-          setEnteredText={setEnteredText}
-          setNameSearched={setNameSearched}
-          setAddressSearched={setAddressSearched}
-        />
-      </div>
+    <div className="mx-auto mt-4 w-full max-w-5xl  text-center">
+      <Input
+        handleSubmit={handleSubmit}
+        enteredText={enteredText}
+        setEnteredText={setEnteredText}
+      />
       <div className="mt-6">
         {enteredText.length ? (
           submissions?.map((submission, i) => (
@@ -95,7 +82,6 @@ const ProfilePage = () => {
               setEnteredText={setEnteredText}
               status={submission.status}
               submissionTime={submission.submissionTime}
-              submission={submission}
             />
           ))
         ) : (

@@ -1,7 +1,7 @@
 export type Input = {
-  setNameSearched: any
-  setAddressSearched: any
-  submitAddress: any
+  setNameSearched?: any
+  setAddressSearched?: any
+  handleSubmit: any
   enteredText: any
   setEnteredText: any
 }
@@ -16,7 +16,6 @@ export type Submissions = {
   submissionTime?: pohBigInt
   name: string
   requests: !pohRequest
-  submission?: any
 }
 
 export type pohCounter = {
@@ -42,4 +41,11 @@ export type Profile = {
 export type Tab = {
   name: string
   Icon: (props: SVGProps<SVGSVGElement>) => JSX.Element
+}
+
+export enum pohStatus {
+  NONE,
+  VOUCHING,
+  PENDINGREGISTRATION,
+  PENDINGREMOVAL,
 }
