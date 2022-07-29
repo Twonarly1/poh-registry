@@ -32,12 +32,12 @@ const Home = () => {
   return (
     <div className="mx-auto mt-0 max-w-5xl p-4 text-center">
       <form onSubmit={handleSubmit} className="mt-2">
-        <div className="relative mx-auto mt-0 rounded-full shadow-sm hover:scale-105">
+        <div className="relative mx-auto mt-0 max-w-lg rounded-full hover:scale-105">
           <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
             <SearchIcon className="h-5 w-5 text-gray-500" aria-hidden="true" />
           </div>
           <input
-            className="border-primary-light block w-full rounded-full border-none bg-white py-3 pl-10 text-left text-lg font-semibold shadow-none outline-none placeholder:text-sm focus:border-none focus:bg-white focus:shadow-none focus:outline-none focus:ring-0 active:bg-white dark:text-black md:w-full md:max-w-lg xs:placeholder:text-lg"
+            className="border-primary-light  block w-full rounded-full border-none bg-white py-3 pl-10 text-left text-lg font-semibold shadow-none outline-none placeholder:text-sm focus:border-none focus:bg-white focus:shadow-none focus:outline-none focus:ring-0 active:bg-white dark:text-black md:w-full md:max-w-lg xs:placeholder:text-lg"
             type="text"
             value={enteredText}
             onChange={(e) => setEnteredText(e.target.value)}

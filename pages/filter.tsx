@@ -1,4 +1,4 @@
-import React, { SVGProps, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SearchResults from '../components/SearchResults'
 import { useQuery } from '@apollo/client'
 import {
@@ -18,47 +18,72 @@ const filter = () => {
       name: 'registered',
       avatar: '/images/filter/badgecheck.svg',
       content: counters?.registered,
+      //@ts-ignore
+      // query: ({ submissionDuration }) => ({
+      //   where: {
+      //     status: 'None',
+      //     registered: true,
+      //     submissionTime_gte:
+      //       Math.floor(Date.now() / 1000) - (submissionDuration || 0),
+      //   },
+      // }),
     },
     {
       name: 'Vouching',
       avatar: '/images/filter/hand.svg',
       content: counters?.vouchingPhase,
+      // query: { where: { status: 'Vouching' } },
     },
     {
       name: 'PendingRegistration',
       avatar: '/images/filter/fire.svg',
       content: counters?.pendingRegistration,
+      // query: { where: { status: 'PendingRegistration', disputed: false } },
     },
     {
       name: 'PendingRemoval',
       avatar: '/images/filter/pause.svg',
       content: counters?.pendingRemoval,
+      // query: { where: { status: "PendingRemoval", disputed: false } },
     },
 
     {
       name: 'expired - todo',
       avatar: '/images/filter/clock.svg',
       content: counters?.expired,
+      //@ts-ignore
+      // query: ({ submissionDuration }) => ({
+      //   where: {
+      //     status: 'None',
+      //     registered: true,
+      //     submissionTime_lt:
+      //       Math.floor(Date.now() / 1000) - (submissionDuration || 0),
+      //   },
+      // }),
     },
     {
       name: 'removed',
       avatar: '/images/filter/ban.svg',
       content: counters?.removed,
+      query: { where: { status: 'None', registered: false } },
     },
     {
       name: 'ChallengedRegistration - todo',
       avatar: '/images/filter/flag.svg',
       content: counters?.challengedRegistration,
+      // query: { where: { status: "PendingRegistration", disputed: true } },
     },
     {
       name: 'ChallengedRemoval - todo',
       avatar: '/images/filter/flag.svg',
       content: counters?.challengedRemoval,
+      // query: { where: { status: "PendingRemoval", disputed: true } },
     },
   ]
   const [selected, setSelected] = useState(filter[0])
   useEffect(() => {}, [selected])
 
+  // HERERERE
   //status
   const { data } = useQuery(GET_SUBMISSIONS_BY_STATUS, {
     variables: { status: selected.name },
@@ -82,7 +107,6 @@ const filter = () => {
           selected={selected}
           setSelected={setSelected}
           filter={filter}
-          setEnteredText={setEnteredText}
         />
       </div>
 

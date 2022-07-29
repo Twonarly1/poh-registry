@@ -7,7 +7,6 @@ type Props = {
   selected: any
   setSelected: any
   filter: any
-  setEnteredText: any
 }
 
 export default function ListBox({ selected, setSelected, filter }: Props) {

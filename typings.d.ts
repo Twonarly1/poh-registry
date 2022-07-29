@@ -28,6 +28,7 @@ export type pohCounter = {
   registered: !pohBigInt
   expired: !pohBigInt
   removed: !pohBigInt
+  countersOptions: CountersOptions[]
 }
 
 export type Profile = {
@@ -49,3 +50,13 @@ export enum pohStatus {
   PENDINGREGISTRATION,
   PENDINGREMOVAL,
 }
+
+type CountersOptions =
+  | 'Vouching'
+  | 'PendingRegistration'
+  | 'PendingRemoval'
+  | 'ChallengedRegistration'
+  | 'challengedRemoval'
+  | 'Registered'
+  | 'Expired'
+  | 'Removed'

@@ -4,6 +4,7 @@ import {
   BadgeCheckIcon,
   BanIcon,
   CalendarIcon,
+  ClockIcon,
   FireIcon,
   HandIcon,
   PauseIcon,
@@ -105,6 +106,7 @@ const Profile = ({
               <Ubi ethAddress={ethAddress} /> {/* currency converter */}
             </>
           )}
+
           {/* vouching */}
           {submission?.registered === false &&
             submission?.status == 'Vouching' && (
@@ -117,6 +119,7 @@ const Profile = ({
                 />
               </div>
             )}
+
           {/* pending registration */}
           {submission?.registered === false &&
             submission?.status === 'PendingRegistration' && (
@@ -129,6 +132,7 @@ const Profile = ({
                 />
               </div>
             )}
+
           {/* pending removal... */}
           {submission?.registered === false &&
             submission?.status === 'PendingRemoval' && (
@@ -141,7 +145,19 @@ const Profile = ({
                 />
               </div>
             )}
+
           {/* expired */}
+          {submission?.registered === true && submission?.status === 'None' && (
+            <div className="text-brown-300 mt-6 flex items-center text-red-500">
+              <SidebarRow
+                Icon={ClockIcon}
+                title="Expired"
+                onClick={() => router.push('/registry')}
+                content=""
+              />
+            </div>
+          )}
+
           {/* removed */}
           {submission?.registered === false && submission?.status === 'None' && (
             <div className="mt-6 flex items-center text-red-500">
@@ -153,6 +169,7 @@ const Profile = ({
               />
             </div>
           )}
+
           {/* creation */}
           {submission?.registered && (
             <div className="flex items-center">
@@ -163,6 +180,7 @@ const Profile = ({
               />
             </div>
           )}
+
           {/* submission */}
           {submission?.registered === true && (
             <div className="flex items-center">
@@ -173,6 +191,9 @@ const Profile = ({
               />
             </div>
           )}
+
+
+
           {/* connections */}
           {submission?.registered === true && (
             <>
