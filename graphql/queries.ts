@@ -144,7 +144,7 @@ export const GET_SUBMISSIONS_BY_ORDERING = gql`
 export const GET_ALL_SUBMISSIONS = gql`
   query indexQuery(
     $skip: Int = 0
-    $first: Int = 13
+    $first: Int
     $where: pohSubmission_filter = { removed: false }
     $search: String = ""
     $address: ID = ""
@@ -158,7 +158,11 @@ export const GET_ALL_SUBMISSIONS = gql`
     ) {
       ...pohSubmissionFragment
     }
-    contains: pohsubmissions(where: { name_contains: $search }) {
+    contains: pohsubmissions(
+      first: $first
+      skip: $skip
+      where: { name_contains: $search }
+    ) {
       ...pohSubmissionFragment
     }
     byAddress: pohsubmissions(where: { id: $address }) {

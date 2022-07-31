@@ -5,27 +5,46 @@ import { Submissions } from '../typings'
 import SearchResults from '../components/SearchResults'
 import ScrollToTop from '../components/Scroll'
 import Counter from '../components/Counter'
-import { SearchIcon } from '@heroicons/react/outline'
-
+import {
+  ArrowLeftIcon,
+  ArrowRightIcon,
+  SearchIcon,
+} from '@heroicons/react/outline'
+const pageSize = 12
 const Home = () => {
   const [enteredText, setEnteredText] = useState<any>('')
+  const [skip, setSkip] = useState(0)
   const { data: responseData } = useQuery(GET_ALL_SUBMISSIONS, {
     variables: {
       search: enteredText,
       address: enteredText,
+      first: pageSize,
+      skip: skip,
     },
   })
 
   const containsNormalized = responseData?.contains.slice(0, 12) || []
   const byAddressNormalized = responseData?.byAddress || []
 
-  const submissions: Submissions[] = responseData
-    ? containsNormalized.concat(byAddressNormalized)
-    : responseData?.submissions?.slice(0, 12)
+  const submissions: Submissions[] =
+    enteredText && responseData
+      ? containsNormalized.concat(byAddressNormalized)
+      : responseData?.pohsubmissions
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault()
   }
+
+  const handleSkipForward = () => {
+    console.log('forward', skip)
+    setSkip(skip + 13)
+  }
+  const handleSkipBackward = () => {
+    console.log('backward', skip)
+
+    setSkip(skip - 13)
+  }
+
   // console.log(enteredText)
   console.log(responseData)
   // console.log(submissions)
@@ -66,7 +85,21 @@ const Home = () => {
             />
           ))}
       </div>
-      <ScrollToTop />
+      <div className="mx-auto mb-6 flex w-fit gap-2 ">
+        <button
+          onClick={() => handleSkipBackward()}
+          className=" mx-auto mt-6 max-w-lg items-center rounded border p-1 text-gray-600 hover:bg-white"
+        >
+          <ArrowLeftIcon className="h-6 w-6 " />
+        </button>
+        <button
+          onClick={() => handleSkipForward()}
+          className=" mx-auto mt-6 max-w-lg items-center rounded border p-1 text-gray-600 hover:bg-white"
+        >
+          <ArrowRightIcon className="h-6 w-6 " />
+        </button>
+      </div>
+      {/* <ScrollToTop /> */}
     </div>
   )
 }
