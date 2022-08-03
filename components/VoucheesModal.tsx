@@ -1,19 +1,20 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { Transition, Dialog } from '@headlessui/react'
 import { InformationCircleIcon, XIcon } from '@heroicons/react/outline'
 import { useRecoilState } from 'recoil'
 import { voucheesStateModal } from '../atoms/voucheesAtom'
 import router from 'next/router'
-import { conciseEthAddress, formatUnix } from '../lib/utils'
-import Avatar from './Avatar'
+import { conciseEthAddress, formatUnix, transformURI } from '../lib/utils'
 import Timeago from 'react-timeago'
+import { Submissions } from '../typings'
 
 //fix this
 type Props = {
   submission: any
+  vouchees: any
 }
 
-const VoucheesModal = ({ submission }: Props) => {
+const VoucheesModal = ({ submission, vouchees }: Props) => {
   let [isOpen, setIsOpen] = useRecoilState(voucheesStateModal)
 
   return (
@@ -75,6 +76,18 @@ const VoucheesModal = ({ submission }: Props) => {
                   <XIcon className="absolute  top-4 right-4 w-7 text-gray-400" />
                 </button>
                 <div className="bg-white">
+                  {vouchees?.map((vouchee: any, index: number) => {
+                    const photo = transformURI(vouchee?.photo)
+                    return (
+                      <img
+                        key={index}
+                        src={photo}
+                        className="h-10 w-10 rounded-full"
+                        alt=""
+                      />
+                    )
+                  })}
+
                   {submission?.vouchees?.map(
                     (submission: any, index: number) => (
                       <div
@@ -85,10 +98,15 @@ const VoucheesModal = ({ submission }: Props) => {
                         }}
                         key={index}
                       >
+                        {/* {console.log(submission?.requests[0].evidence[0].URI)} */}
+
                         <div className="flex items-center space-x-3">
-                          <p className="hover:rounded-full hover:ring-2">
-                            <Avatar seed={submission.id as string} />
-                          </p>
+                          {/* image */}
+                          <img
+                            src=""
+                            className="h-10 w-10 rounded-full"
+                            alt=""
+                          />{' '}
                           <div className="font-bold text-black">
                             {submission.name}
                           </div>

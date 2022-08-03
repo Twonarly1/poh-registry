@@ -58,7 +58,7 @@ const Tabs = () => {
               : 'bg-white text-gray-500 hover:bg-gray-50'
           }`}
         >
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center gap-x-2">
             <tab.Icon className="h-6 w-6" />
             <p className="hidden md:flex">{capitalizeFirstLetter(tab.name)}</p>
           </div>

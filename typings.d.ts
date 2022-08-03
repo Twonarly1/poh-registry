@@ -4,18 +4,21 @@ export type Input = {
   handleSubmit: any
   enteredText: any
   setEnteredText: any
+  placeholder: string
 }
 
 export type Submissions = {
   creationTime: !pohBigInt
+  disputed: !Boolean
   id: string
-  index: number
-  status: !pohStatus
+  name: String!
   registered: !Boolean
-  setEnteredText?: any
+  requests: pohRequest!
+  status: !pohStatus
   submissionTime?: pohBigInt
-  name: string
-  requests: !pohRequest
+  vouchees: pohSubmission!
+  index: number
+  setEnteredText?: any
 }
 
 export type pohCounter = {
@@ -32,12 +35,13 @@ export type pohCounter = {
 }
 
 export type Profile = {
-  ethAddress: string
   video: string | undefined
   photo: string | undefined
   submission: any
   profile: any
 }
+
+export type Request = {}
 
 export type Tab = {
   name: string

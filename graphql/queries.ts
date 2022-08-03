@@ -202,6 +202,15 @@ export const GET_ALL_SUBMISSIONS = gql`
       id
       name
       submissionTime
+      requests(
+        orderBy: creationTime
+        orderDirection: desc
+        where: { registration: true }
+      ) {
+        evidence(orderBy: creationTime, first: 1) {
+          URI
+        }
+      }
     }
   }
 `

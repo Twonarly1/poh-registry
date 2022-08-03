@@ -124,6 +124,9 @@ const filter = () => {
               setEnteredText={setEnteredText}
               status={status?.status}
               submissionTime={status?.submissionTime}
+              //@ts-ignore
+              disputed={undefined}
+              vouchees={undefined}
             />
           ))}
       </div>

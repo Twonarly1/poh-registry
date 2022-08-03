@@ -4,17 +4,11 @@
 
 @layer base {
   body {
-    @apply mx-auto h-screen w-full overflow-y-scroll bg-gray-200;
+    @apply mx-auto h-screen w-full overflow-y-scroll bg-white;
   }
 }
 
 @layer components {
-  .icon {
-    @apply flex cursor-pointer items-center space-x-2 rounded-sm p-2 text-sm font-semibold hover:bg-gray-100;
-  }
-  .voteButtons {
-    @apply h-6 w-6 rounded-md p-1 hover:bg-gray-200;
-  }
   .postButtons {
     @apply flex cursor-pointer items-center space-x-1 rounded-sm p-2 text-sm font-semibold hover:bg-gray-100;
   }
@@ -26,8 +20,5 @@
   }
   .dialog {
     @apply inline-block w-full max-w-md transform overflow-hidden rounded-2xl bg-black p-6 text-left align-middle text-black shadow-xl transition-all dark:text-white;
-  }
-  .header {
-    @apply h-6 w-6 items-center text-primary-orange hover:bg-gray-100;
   }
 }

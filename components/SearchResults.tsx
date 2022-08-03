@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import router from 'next/router'
 import { LinkIcon } from '@heroicons/react/outline'
-import { useEnsName } from 'wagmi'
+import { useAccount, useEnsAvatar, useEnsName } from 'wagmi'
 import { conciseEthAddress, transformURI } from '../lib/utils'
-import Avatar from './Avatar'
 import { Submissions } from '../typings'
 
 function SearchResults({
@@ -11,6 +10,8 @@ function SearchResults({
   index,
   name,
   setEnteredText,
+  disputed,
+  vouchees,
   requests,
 }: Submissions) {
   const { data: ensData } = useEnsName({
@@ -20,6 +21,7 @@ function SearchResults({
   let uri = requests[0]?.evidence[0]?.URI
   const uriToHttp = transformURI(uri)
   const uriToJson = transformURI(newUri)
+  const [profile, setProfile] = useState<any>('')
 
   useEffect(() => {
     if (uriToHttp) {
@@ -27,14 +29,22 @@ function SearchResults({
         .then((response) => response.json())
         .then((data) => {
           setNewUri(data.fileURI)
-          console.log()
         })
     }
-  }, [uri])
+    if (uriToJson) {
+      fetch(uriToJson)
+        .then((response) => response.json())
+        .then((data) => {
+          setProfile(data)
+        })
+    }
+  }, [uri, newUri])
+  const photo = transformURI(profile.photo)
 
-  // console.log('profile:', newUri)
+  console.log({ id, index, name, setEnteredText, requests })
+
   return (
-    <div className="mx-auto max-w-2xl  cursor-pointer border-t bg-white px-2 py-1 last:rounded-b xs:px-4">
+    <div className="mx-auto max-w-2xl  cursor-pointer border-t  px-2 py-1 last:rounded-b xs:px-4">
       <a
         onClick={(e) => {
           e.preventDefault()
@@ -49,7 +59,16 @@ function SearchResults({
       >
         <div className="flex items-center gap-2">
           <p className="w-5">{index + 1}</p>
-          <Avatar seed={id} />
+
+          {/* <Avatar seed={id} /> */}
+
+          <img
+            loading="lazy"
+            src={photo}
+            className="h-10 w-10 rounded-full object-cover"
+            alt=""
+          />
+
           <div className="items-center sm:flex xs:gap-2">
             <p className="w-32 truncate text-left text-xs font-bold text-black xs:w-auto xs:text-sm">
               {name}

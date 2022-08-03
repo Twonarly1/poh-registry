@@ -10,8 +10,8 @@ export default function Header() {
 
   return (
     <>
-      <div className="w-full bg-white shadow-lg">
-        <div className="sticky top-0 z-50 mx-auto flex w-screen max-w-7xl items-center justify-between bg-white px-8 py-2">
+      <div className="w-full bg-gray-200">
+        <div className="sticky top-0 z-50 mx-auto flex w-screen max-w-7xl items-center justify-between bg-gray-200 px-8 py-2">
           <div
             onClick={() => router.push('/')}
             className="relative h-12 w-12 flex-shrink-0 cursor-pointer sm:flex"
@@ -28,7 +28,7 @@ export default function Header() {
             <ConnectButton />
           </div>
 
-          <div className="hidden items-center text-gray-500 sm:inline-flex md:space-x-1 xs:flex">
+          <div className="hidden items-center space-x-2 text-gray-500 sm:inline-flex xs:flex">
             <Tabs />
             <ConnectButton />
           </div>

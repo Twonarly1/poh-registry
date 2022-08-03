@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import router from 'next/router'
 import {
   BadgeCheckIcon,
@@ -13,25 +13,54 @@ import {
 import { useEnsName } from 'wagmi'
 import { Jelly } from '@uiball/loaders'
 import { CalendarIcon as CalendarIconFilled } from '@heroicons/react/solid'
-import { conciseEthAddress, formatUnix } from '../lib/utils'
+import { conciseEthAddress, formatUnix, transformURI } from '../lib/utils'
 import Ubi from './Ubi'
 import Copy from './Copy'
-import Avatar from './Avatar'
 import SidebarRow from './MenuList'
 import VoucheesModal from './VoucheesModal'
 import Timeago from 'react-timeago'
-import { Profile } from '../typings'
+//import { Profile, Submissions } from '../typings'
 
-const Profile = ({
-  profile,
-  submission,
-  ethAddress,
-  photo,
-  video,
-}: Profile) => {
+const Profile = ({ profile, submission, photo }: any) => {
+  const [files, setFiles] = useState<any>([])
+  const [voucheesData, setVoucheesData] = useState<any>([])
+
   const { data: ensData } = useEnsName({
-    address: ethAddress,
+    address: submission?.id,
   })
+  let registrationJSON = submission?.vouchees.map((vouchee: any) => ({
+    value: transformURI(vouchee?.requests[0].evidence[0].URI),
+  }))
+
+  useEffect(() => {
+    if (submission) {
+      registrationJSON.map((reg: any) => {
+        fetch(reg.value)
+          .then((res) => res.json())
+          .then((data) => {
+            setFiles((arr: any) => [
+              ...arr,
+              { value: transformURI(data.fileURI) },
+            ])
+          })
+      })
+    }
+  }, [])
+
+  useEffect(() => {
+    if (files) {
+      files.map((file: any) => {
+        fetch(file.value)
+          .then((res) => res.json())
+          .then((data) => {
+            setVoucheesData((arr: any) => [...arr, data])
+          })
+      })
+    }
+  }, [])
+
+  // console.log('vouvoucheesData', voucheesData)
+
   if (!profile && !submission)
     return (
       <div className="flex w-full items-center justify-center p-10 text-xl">
@@ -41,113 +70,92 @@ const Profile = ({
         </p>
       </div>
     )
-  // console.log(submission, profile, ethAddress, photo)
 
   return (
-    <div className="bg-slate-200">
-      <div className="mx-auto mt-10 max-w-5xl items-center bg-white pb-6 shadow-lg">
-        <div className="flex items-center space-x-2">
-          {/* user identification */}
-          <div className="mx-auto -mt-5 flex items-center">
-            <Avatar seed={ethAddress as string} large />
-            <div className="ml-2 mt-6 font-mono font-medium md:hidden xs:text-2xl">
-              {conciseEthAddress(ethAddress)}
-              <br />
-              <div className="text-left text-sm tracking-wide text-gray-400">
-                {ensData}
-              </div>
-            </div>
-            <div>
-              <div className="ml-2 mt-7 hidden font-mono text-2xl font-medium md:flex">
-                {ethAddress}
-              </div>
-              <div className="ml-[10px] hidden text-sm tracking-wide text-gray-400 md:flex">
-                {ensData}
-              </div>
-            </div>
-            {ethAddress && (
-              <div className="mt-7 ml-2">
-                <Copy toCopy={ethAddress}></Copy>
-              </div>
-            )}
-          </div>
+    <div className="mx-auto max-w-2xl items-center pb-6 text-[15px]  text-gray-400">
+      <p className="text-2xl font-bold text-gray-900">{profile.name}</p>
+      {profile.frstName && <p>{profile.firstName}</p>}
+      {profile.lastName && <p>{profile.lastName}</p>}
+      {profile.bio && <p>{profile.bio}</p>}
+      <div className="font-mono">
+        <span className="items-center p-1">
+          {conciseEthAddress(submission?.id)}
+        </span>
+        <Copy toCopy={submission?.id} />
+      </div>
+      {ensData && <p>{ensData}</p>}
+      <div className="hidden gap-2 font-mono text-2xl ">
+        {submission?.id}
+        <Copy toCopy={submission?.id} />
+      </div>
+      {ensData && <p className="hidden">{ensData}</p>}
+
+      <div className="mt-2 text-[15px] text-gray-400">
+        <div className="md:inline-flex ">
+          {photo && (
+            <img
+              className="mx-auto flex h-80 w-fit  object-cover"
+              src={photo}
+              alt="Registry Photo"
+            />
+          )}
+          {/* <VideoPlayer Video={video} /> */}
         </div>
 
-        <div className="mt-6 text-lg text-gray-400">
-          {/* photo large screen */}
-          <div className="md:inline-flex ">
-            {photo && (
-              <img
-                className="mx-auto flex h-80 w-fit  object-cover"
-                src={photo}
-                alt="Registry Photo"
+        {/* registered */}
+        {submission?.registered === true && (
+          <>
+            <div className="mt-6 flex items-center text-orange-300">
+              <SidebarRow
+                Icon={BadgeCheckIcon}
+                title="Registered"
+                content={submission?.registered == true ? 'true' : 'false'}
               />
-            )}
-            {/* <VideoPlayer Video={video} /> */}
+            </div>
+            <Ubi ethAddress={submission?.id} /> {/* currency converter */}
+          </>
+        )}
+
+        {/* vouching */}
+        {submission?.registered === false && submission?.status == 'Vouching' && (
+          <div className="mt-6 flex items-center text-blue-300">
+            <SidebarRow
+              Icon={HandIcon}
+              title="Vouching"
+              onClick={() => router.push('/registry')}
+              content=""
+            />
           </div>
+        )}
 
-          {/* name / displayName / bio */}
-          <p className="mt-4 text-4xl font-bold">{profile.name}</p>
-          <p className="text-sm uppercase">
-            {profile.firstName}&nbsp;{profile.lastName}
-          </p>
-          <p className="text-sm">{profile.bio}</p>
-
-          {/* registered */}
-          {submission?.registered === true && (
-            <>
-              <div className="mt-6 flex items-center text-orange-300">
-                <SidebarRow
-                  Icon={BadgeCheckIcon}
-                  title="Registered"
-                  content={submission?.registered == true ? 'true' : 'false'}
-                />
-              </div>
-              <Ubi ethAddress={ethAddress} /> {/* currency converter */}
-            </>
+        {/* pending registration */}
+        {submission?.registered === false &&
+          submission?.status === 'PendingRegistration' && (
+            <div className="mt-6 flex items-center text-orange-500">
+              <SidebarRow
+                Icon={FireIcon}
+                title="Pending Registration"
+                onClick={() => router.push('/registry')}
+                content=""
+              />
+            </div>
           )}
 
-          {/* vouching */}
-          {submission?.registered === false &&
-            submission?.status == 'Vouching' && (
-              <div className="mt-6 flex items-center text-blue-300">
-                <SidebarRow
-                  Icon={HandIcon}
-                  title="Vouching"
-                  onClick={() => router.push('/registry')}
-                  content=""
-                />
-              </div>
-            )}
+        {/* pending removal... */}
+        {submission?.registered === false &&
+          submission?.status === 'PendingRemoval' && (
+            <div className="text-brown-300 mt-6 flex items-center text-red-500">
+              <SidebarRow
+                Icon={PauseIcon}
+                title="Pending Registration"
+                onClick={() => router.push('/registry')}
+                content=""
+              />
+            </div>
+          )}
 
-          {/* pending registration */}
-          {submission?.registered === false &&
-            submission?.status === 'PendingRegistration' && (
-              <div className="mt-6 flex items-center text-orange-500">
-                <SidebarRow
-                  Icon={FireIcon}
-                  title="Pending Registration"
-                  onClick={() => router.push('/registry')}
-                  content=""
-                />
-              </div>
-            )}
-
-          {/* pending removal... */}
-          {submission?.registered === false &&
-            submission?.status === 'PendingRemoval' && (
-              <div className="text-brown-300 mt-6 flex items-center text-red-500">
-                <SidebarRow
-                  Icon={PauseIcon}
-                  title="Pending Registration"
-                  onClick={() => router.push('/registry')}
-                  content=""
-                />
-              </div>
-            )}
-
-          {/* expired */}
-          {submission?.registered === true && submission?.status === 'None' && (
+        {/* expired */}
+        {/* {submission?.registered === true && submission?.status === 'None' && (
             <div className="text-brown-300 mt-6 flex items-center text-red-500">
               <SidebarRow
                 Icon={ClockIcon}
@@ -156,81 +164,101 @@ const Profile = ({
                 content=""
               />
             </div>
-          )}
+          )} */}
 
-          {/* removed */}
-          {submission?.registered === false && submission?.status === 'None' && (
-            <div className="mt-6 flex items-center text-red-500">
+        {/* removed */}
+        {submission?.registered === false && submission?.status === 'None' && (
+          <div className="mt-6 flex items-center text-red-500">
+            <SidebarRow
+              Icon={BanIcon}
+              title="Removed"
+              onClick={() => router.push('/registry')}
+              content=""
+            />
+          </div>
+        )}
+
+        {/* creation */}
+        {submission?.registered && (
+          <div className="flex items-center">
+            <SidebarRow
+              Icon={CalendarIcon}
+              title="Creation"
+              content={formatUnix(submission?.creationTime)}
+            />
+          </div>
+        )}
+
+        {/* submission */}
+        {submission?.registered === true && (
+          <div className="flex items-center">
+            <SidebarRow
+              Icon={CalendarIconFilled}
+              title="Submission"
+              content={formatUnix(submission?.submissionTime)}
+            />
+          </div>
+        )}
+
+        {/* connections */}
+        {submission?.registered === true && (
+          <>
+            <div className="flex items-center text-purple-300">
               <SidebarRow
-                Icon={BanIcon}
-                title="Removed"
-                onClick={() => router.push('/registry')}
-                content=""
+                Icon={UserGroupIcon}
+                title="Vouchees"
+                content={
+                  submission?.vouchees?.length > 0 ? (
+                    <div className="flex items-center">
+                      {submission?.vouchees?.length}
+                      <VoucheesModal
+                        submission={submission}
+                        //@ts-ignore
+                        vouchees={voucheesData}
+                      />
+                    </div>
+                  ) : (
+                    '0'
+                  )
+                }
               />
             </div>
-          )}
+          </>
+        )}
 
-          {/* creation */}
-          {submission?.registered && (
-            <div className="flex items-center">
-              <SidebarRow
-                Icon={CalendarIcon}
-                title="Creation"
-                content={formatUnix(submission?.creationTime)}
+        {voucheesData?.map((vouchee: any, index: number) => {
+          const photo = transformURI(vouchee?.photo)
+          return (
+            <span className="-ml-2 inline-block w-10 cursor-pointer rounded-full md:ml-0  ">
+              <img
+                onClick={() => router.push(`/registry/${submission?.id}`)}
+                key={index}
+                src={photo}
+                className="h-10 w-10 rounded-full object-cover"
+                alt=""
               />
-            </div>
-          )}
+            </span>
+          )
+        })}
 
-          {/* submission */}
-          {submission?.registered === true && (
-            <div className="flex items-center">
-              <SidebarRow
-                Icon={CalendarIconFilled}
-                title="Submission"
-                content={formatUnix(submission?.submissionTime)}
+        {/* {vouchees} */}
+        {/* {submission?.vouchees?.map((submission: any, index: number) => (
+          <div
+            key={index}
+            className="mt-2 inline-flex"
+            onClick={() => router.push(`/registry/${submission?.id}`)}
+          >
+            <span className="-ml-2 inline-block w-10 cursor-pointer rounded-full md:ml-0  ">
+              <img
+                src={photo}
+                className="h-10 w-10 rounded-full object-cover"
+                alt=""
               />
-            </div>
-          )}
-
-
-
-          {/* connections */}
-          {submission?.registered === true && (
-            <>
-              <div className="flex items-center text-purple-300">
-                <SidebarRow
-                  Icon={UserGroupIcon}
-                  title="Vouchees"
-                  content={
-                    submission?.vouchees?.length > 0 ? (
-                      <div className="flex items-center">
-                        {submission?.vouchees?.length}
-                        <VoucheesModal submission={submission} />
-                      </div>
-                    ) : (
-                      '0'
-                    )
-                  }
-                />
-              </div>
-            </>
-          )}
-          {submission?.vouchees?.map((submission: any, index: number) => (
-            <div
-              key={index}
-              className="mt-4 inline-flex"
-              onClick={() => router.push(`/registry/${submission?.id}`)}
-            >
-              <span className="-ml-2 inline-block w-8 cursor-pointer rounded-full md:ml-0  ">
-                <span className="">
-                  <Avatar seed={submission?.id as string} />
-                </span>
-              </span>
-            </div>
-          ))}
-        </div>
+            </span>
+          </div>
+        ))} */}
       </div>
-      <div className="h-24 bg-slate-200" id="spacer"></div>
+      <div className="h-24" id="spacer"></div>
     </div>
   )
 }

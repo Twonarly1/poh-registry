@@ -17,23 +17,23 @@ const ProfilePage = () => {
   const [newUri, setNewUri] = useState('')
   const [profile, setProfile] = useState<any>('')
   const [enteredText, setEnteredText] = useState<any>('')
+  //query submission from ethAddress pulled from pathName
+  const { data } = useQuery(GET_ALL_SUBMISSIONS, {
+    variables: { address: address },
+  })
   //query all submissions when <Input> is submitted
   const [searchAll, { data: responseData }] = useLazyQuery(GET_ALL_SUBMISSIONS)
-  //query submission from ethAddress pulled from pathName
-  const { data } = useQuery(GET_SUBMISSION_BY_ADDRESS, {
-    variables: { id: address },
-  })
   const submissions: Submissions[] = responseData?.contains
-  const submission = data?.pohsubmissions[0] || responseData?.byAddress[0]
+  const submission = data?.byAddress[0]
   let uri = submission?.requests[0].evidence[0].URI
   const uriToHttp = transformURI(uri)
   const uriToJson = transformURI(newUri)
   const photo = transformURI(profile.photo)
-  const video = transformURI(profile.video)
 
   const handleSubmit = async () => {
     if (enteredText.length == 42) {
       router.replace('/registry/' + enteredText)
+      setEnteredText('')
     } else {
       searchAll({
         variables: {
@@ -61,16 +61,25 @@ const ProfilePage = () => {
     }
   }, [uri, newUri])
 
+  console.log(' address', address)
+  console.log({ profile, submission })
+  console.log(' enteredText', enteredText)
+
+  // const placeholder = () => {
+  //   if ()
+  // }
+
   return (
     <div className="mx-auto mt-4 w-full max-w-5xl  text-center">
       <Input
+        placeholder="Search registry..."
         handleSubmit={handleSubmit}
         enteredText={enteredText}
         setEnteredText={setEnteredText}
       />
-      <div className="mt-6">
+      <div className="mt-2 py-2">
         {enteredText.length ? (
-          submissions?.map((submission, i) => (
+          submissions?.map((submission: Submissions, i: number) => (
             <SearchResults
               creationTime={submission.creationTime}
               id={submission.id}
@@ -82,16 +91,12 @@ const ProfilePage = () => {
               setEnteredText={setEnteredText}
               status={submission.status}
               submissionTime={submission.submissionTime}
+              disputed={submission.disputed}
+              vouchees={submission.vouchees}
             />
           ))
         ) : (
-          <Profile
-            profile={profile}
-            ethAddress={submission?.id}
-            submission={submission}
-            photo={photo}
-            video={video}
-          />
+          <Profile profile={profile} submission={submission} photo={photo} />
         )}
       </div>
     </div>

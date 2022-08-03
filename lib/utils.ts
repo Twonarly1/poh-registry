@@ -44,8 +44,8 @@ export const conciseDid = (addr: string) => {
   )
 }
 
-const instance = axios.create({ baseURL: 'https://ipfs.kleros.io' })
-export default instance
+// const instance = axios.create({ baseURL: 'https://ipfs.kleros.io' })
+// export default instance
 
 var emojis = [
   '😄',
